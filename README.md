@@ -1,1 +1,4 @@
 # Property-System-Reflection-Based
+
+The goal is to create a easy-to-use property system for external programmers. I want it to handle the serialization / deserialization and the modification  via ImGui. For that I will use a reflection system based on Templates and Macros. I really want to dive into the c++ low level metaprogramming to really understand how it works under the hood. I want my system to be like Unreal Engine's. The only difference is that unreal generates a generated.cpp file because they are using a c++ parser  to automate certain tasks. I will probablywon't go that far because i'm not sure to have the time to do it properly.
+I will work on this project on the side and not implementing it directly in my engine because i really want this project to be used in different projects.
