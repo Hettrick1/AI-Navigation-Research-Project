@@ -1,0 +1,47 @@
+{
+    "player": "e0f23f80-9847-4cc6-b431-f5c3183c5cb5",
+    "actors": [{
+            "prefabName": "af1ccdf6-1462-4ae0-9b0e-74655b8f5133",
+            "uuid": "21688c8f-a3f9-4414-8369-3e800d17e0b3",
+            "name": "PlayerStart",
+            "state": "active",
+            "transform": {
+                "position": [0.0, 0.0, 0.0],
+                "rotation": [0.0, 0.0, 0.0],
+                "size": [1.0, 1.0, 1.0]
+            },
+            "components": [{
+                    "type": "MeshComponent",
+                    "componentId": "MeshComponent1",
+                    "componentName": "MeshComponent",
+                    "properties": {
+                        "relativePosition": [0.0, 0.0, 0.0],
+                        "relativeSize": [1.0, 1.0, 1.0],
+                        "relativeRotation": [0.0, 0.0, 0.0],
+                        "mesh": "64cd0a92-d909-4bb3-aca8-0cf06467e584",
+                        "materialInstance": {
+                            "baseMaterial": "443ed7be-dc9d-4992-a3bf-8651b765a054",
+                            "textures": [{
+                                    "name": "albedo",
+                                    "type": "Texture2D",
+                                    "path": "9108356a-451c-4af9-81e4-95c4e7d8cef4"
+                                }],
+                            "vec2Properties": [{
+                                    "name": "uTiling",
+                                    "value": [1.0, 1.0]
+                                }]
+                        }
+                    }
+                }, {
+                    "type": "PlayerStartComponent",
+                    "componentId": "PlayerStartComponent1",
+                    "componentName": "PlayerStartComponent",
+                    "properties": {
+                        "relativePosition": [0.0, 0.0, 0.0],
+                        "relativeSize": [1.0, 1.0, 1.0],
+                        "relativeRotation": [0.0, 0.0, 0.0],
+                        "playerPrefab": "e0f23f80-9847-4cc6-b431-f5c3183c5cb5"
+                    }
+                }]
+        }]
+}

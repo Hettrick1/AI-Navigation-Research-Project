@@ -1,0 +1,254 @@
+#include "ImGuiEditorLayer.h"
+
+#include <imgui_impl_glfw.h>
+
+#include "Log.h"
+#include "PrefabFactory.h"
+#include "imgui.h"
+#include "imgui_internal.h"
+#include "backends/imgui_impl_opengl3.h"
+#include "Panel/InspectorPanel/InspectorPanel.h"
+#include "Panel/ScenePanel/ScenePanel.h"
+#include "Panel/ConsolePanel.h"
+#include "Panel/SceneHierarchyPanel.h"
+#include "Panel/ContentBrowser/ContentBrowserPanel.h"
+#include "Panel/MenuPanel.h"
+#include "Panel/UtilsPanel.h"
+#include "Panel/PrefabPanel.h"
+#include "EditorUI/ImGuiUtils.h"
+#include "HudManager.h"
+#include "EditorApplication.h"
+#include "EditorControllerActor.h"
+#include "EditorControllerComponent.h"
+#include "ImGuizmo.h"
+
+void ImGuiEditorLayer::InitializeImGui(GLFWwindow* glfw3Window)
+{
+    IMGUI_CHECKVERSION();
+    mEditorContext = ImGui::CreateContext();
+    ImGuiIO& io = ImGui::GetIO();
+    (void)io;
+    io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;
+    io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
+    io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;
+
+    ImGui::StyleColorsDark();
+
+    ZP::UI::gFonts.small = io.Fonts->AddFontFromFileTTF("../Content/Fonts/Roboto/static/Roboto-SemiBold.ttf", 16.0f);
+    ZP::UI::gFonts.medium = io.Fonts->AddFontFromFileTTF("../Content/Fonts/Roboto/static/Roboto-SemiBold.ttf", 20.0f);
+    ZP::UI::gFonts.large = io.Fonts->AddFontFromFileTTF("../Content/Fonts/Roboto/static/Roboto-SemiBold.ttf", 28.0f);
+
+    if (!ZP::UI::gFonts.small || !ZP::UI::gFonts.medium || !ZP::UI::gFonts.large)
+    {
+        ZP_EDITOR_ERROR("Font not loaded !");
+    }
+
+    ImGui_ImplGlfw_InitForOpenGL(glfw3Window, true);
+    ImGui_ImplOpenGL3_Init("#version 450");
+
+    mWindowManager = std::make_shared<Zephyrus::Editor::Window::WindowManager>();
+}
+
+void ImGuiEditorLayer::InitializePanels(EditorApplication* editor)
+{
+    std::unique_ptr<PrefabPanel> prefabPanel = std::make_unique<PrefabPanel>(editor->GetSceneManager(), prefabPanelName);
+    std::unique_ptr<ConsolePanel> consolePanel = std::make_unique<ConsolePanel>(editor->GetSceneManager(), consolePanelName);
+    std::unique_ptr<SceneHierarchyPanel> sceneHierarchyPanel = std::make_unique<SceneHierarchyPanel>(editor->GetSceneManager(), sceneHierarchyName);
+    std::unique_ptr<ScenePanel> scenePanel = std::make_unique<ScenePanel>(editor->GetSceneManager(), scenePanelName, editor->GetEditorController()->GetComponentOfType<Zephyrus::ActorComponent::CameraComponent>()->GetRenderTarget()->GetColorTexture(), sceneHierarchyPanel.get());
+    std::unique_ptr<InspectorPanel> inspectorPanel = std::make_unique<InspectorPanel>(editor->GetSceneManager(), inspectorPanelName);
+    std::unique_ptr<ContentBrowserPanel> contentBrowserPanel = std::make_unique<ContentBrowserPanel>(editor->GetSceneManager(), contentBrowserName, mWindowManager);
+    std::unique_ptr<MenuPanel> menuPanel = std::make_unique<MenuPanel>(editor->GetSceneManager(), menuPanelName, this);
+    std::unique_ptr<UtilsPanel> utilsPanel = std::make_unique<UtilsPanel>(editor->GetSceneManager(), utilsPanelName, topBarHeight);
+
+    ConsolePanel* consolePanelRaw = consolePanel.get();
+    SceneHierarchyPanel* hierarchyPanelRaw = sceneHierarchyPanel.get();
+
+    inspectorPanel->SetSceneHierarchy(hierarchyPanelRaw);
+    contentBrowserPanel->SetSceneHierarchy(hierarchyPanelRaw);
+    contentBrowserPanel->resetfunc = [this, editor]()
+    {
+        auto it = mAllPanels.find(inspectorPanelName);
+        if (it != mAllPanels.end())
+        {
+            if (auto inspectorPanel = dynamic_cast<InspectorPanel*>(it->second.get()))
+            {
+                inspectorPanel->ResetActiveComponent();
+            }
+        }
+        editor->ResetEditorController();
+    };
+
+    mAllPanels[inspectorPanelName] = std::move(inspectorPanel);
+    //mAllPanels[prefabPanelName] = std::move(prefabPanel); -> TODO : Refactor this panel
+    mAllPanels[sceneHierarchyName] = std::move(sceneHierarchyPanel);
+    mAllPanels[consolePanelName] = std::move(consolePanel);
+    mAllPanels[contentBrowserName] = std::move(contentBrowserPanel);
+    mAllPanels[scenePanelName] = std::move(scenePanel);
+    mAllPanels[utilsPanelName] = std::move(utilsPanel);
+    mAllPanels[menuPanelName] = std::move(menuPanel);
+
+    Zephyrus::Debug::Log::AddListener(consolePanelRaw);
+}
+
+void ImGuiEditorLayer::UpdatePanels(EditorApplication* editor)
+{
+    auto scene = mAllPanels.find(scenePanelName);
+    if (scene != mAllPanels.end())
+    {
+        if (auto scenePanel = dynamic_cast<ScenePanel*>(scene->second.get()))
+        {
+            editor->GetEditorController()->GetComponentOfType<Zephyrus::ActorComponent::CameraComponent>()->SetDimensions(scenePanel->GetDimensions());
+        }
+    }
+    for (auto& panel : mAllPanels)
+    {
+        panel.second->Update();
+    }
+    auto it = mAllPanels.find(scenePanelName);
+    if (it != mAllPanels.end())
+    {
+        if (auto scenePanel = dynamic_cast<ScenePanel*>(it->second.get()))
+        {
+            editor->GetEditorController()->GetComponentOfType<Zephyrus::ActorComponent::EditorControllerComponent>()->SetIsInSceneCapture(scenePanel->GetIsHover());
+            cameraView = editor->GetEditorController()->GetComponentOfType<CameraComponent>()->GetViewMatrix();
+            cameraProjection = editor->GetEditorController()->GetComponentOfType<CameraComponent>()->GetProjMatrix();
+            scenePanel->UpdateMatrices(cameraView, cameraProjection);
+        }
+    }
+}
+
+void ImGuiEditorLayer::RenderImgui()
+{
+    ImGui_ImplOpenGL3_NewFrame();
+    ImGui_ImplGlfw_NewFrame();
+    ImGui::NewFrame();
+    ImGuizmo::BeginFrame();
+    
+    SetEditorStyle();
+    
+    DrawDockSpace();
+    DrawPanels();
+    mWindowManager->DrawWindows();
+    
+    ImGui::Render();
+    ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+
+    ImGuiIO& io = ImGui::GetIO();
+
+    if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
+    {
+        GLFWwindow* backup_current_window = glfwGetCurrentContext();
+        ImGui::UpdatePlatformWindows();
+        ImGui::RenderPlatformWindowsDefault();
+        glfwMakeContextCurrent(backup_current_window);
+    }
+}
+
+void ImGuiEditorLayer::DrawDockSpace()
+{
+    static ImGuiDockNodeFlags dockspaceFlags = ImGuiDockNodeFlags_NoCloseButton | ImGuiDockNodeFlags_NoWindowMenuButton;
+    ImGuiWindowFlags window_flags = 
+        ImGuiWindowFlags_NoDocking | ImGuiWindowFlags_NoTitleBar |
+        ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoBringToFrontOnFocus | ImGuiWindowFlags_NoResize |
+        ImGuiWindowFlags_NoMove |
+        ImGuiWindowFlags_NoNavFocus;
+    const ImGuiViewport* viewport = ImGui::GetMainViewport();
+    ImGui::SetNextWindowPos(ImVec2(viewport->WorkPos.x, viewport->WorkPos.y + topBarHeight));
+    ImGui::SetNextWindowSize(ImVec2(viewport->WorkSize.x, viewport->WorkSize.y - topBarHeight));
+    ImGui::SetNextWindowViewport(viewport->ID);
+
+    ImGui::PushStyleVar(ImGuiStyleVar_WindowRounding, 0.0f);
+    ImGui::PushStyleVar(ImGuiStyleVar_WindowBorderSize, 0.0f);
+
+    ImGui::Begin("MainDockSpace", nullptr, window_flags);
+    ImGui::PopStyleVar(2);
+
+    ImGuiID dockspace_id = ImGui::GetID("MyDockSpace");
+    ImGui::DockSpace(dockspace_id, ImVec2(0, 0), dockspaceFlags);
+    ImGui::End();
+
+    static bool first_time = true;
+    if (first_time)
+    {
+        first_time = false;
+
+        ImGui::DockBuilderRemoveNode(dockspace_id);
+        ImGui::DockBuilderAddNode(dockspace_id, ImGuiDockNodeFlags_DockSpace);
+        ImGui::DockBuilderSetNodeSize(dockspace_id, viewport->Size);
+
+        // creates split dockspaces
+        ImGuiID dock_main_id = dockspace_id;
+        ImGuiID dock_id_right;
+        ImGui::DockBuilderSplitNode(dock_main_id, ImGuiDir_Right, 0.20f, &dock_id_right, &dock_main_id);
+        ImGuiID dock_id_down;
+        ImGui::DockBuilderSplitNode(dock_main_id, ImGuiDir_Down, 0.28f, &dock_id_down, &dock_main_id);
+        ImGuiID dock_id_up;
+        ImGui::DockBuilderSplitNode(dock_main_id, ImGuiDir_Up, 0.1f, &dock_id_up, &dock_main_id);
+        ImGuiID dock_id_left;
+        ImGui::DockBuilderSplitNode(dock_main_id, ImGuiDir_Left, 0.25f, &dock_id_left, &dock_main_id);
+
+        ImGui::DockBuilderDockWindow(scenePanelName.c_str(), dock_main_id);
+        ImGui::DockBuilderDockWindow(consolePanelName.c_str(), dock_id_down);
+        ImGui::DockBuilderDockWindow(contentBrowserName.c_str(), dock_id_down);
+        ImGui::DockBuilderDockWindow(inspectorPanelName.c_str(), dock_id_right);
+        ImGui::DockBuilderDockWindow(prefabPanelName.c_str(), dock_id_right);
+        ImGui::DockBuilderDockWindow(sceneHierarchyName.c_str(), dock_id_left);
+
+        ImGui::DockBuilderFinish(dockspace_id);
+    }
+}
+
+void ImGuiEditorLayer::DrawPanels()
+{
+    for (auto& panel : mAllPanels)
+    {
+        panel.second->Draw();
+    }
+}
+
+void ImGuiEditorLayer::SetEditorStyle()
+{
+    ImGuiStyle& style = ImGui::GetStyle();
+    ImVec4* colors = style.Colors;
+
+    colors[ImGuiCol_WindowBg] = ImVec4(0.1f, 0.1f, 0.1f, 1.0f);
+    colors[ImGuiCol_Text] = ImVec4(1.0f, 1.0f, 1.0f, 1.0f);
+    colors[ImGuiCol_Border] = ImVec4(0.9f, 0.7f, 0.0f, 0.3f);
+
+    colors[ImGuiCol_TitleBg] = ImVec4(0.4f, 0.4f, 0.4f, 1.0f);
+    colors[ImGuiCol_TitleBgActive] = ImVec4(0.9f, 0.7f, 0.0f, 1.0f);
+    colors[ImGuiCol_TitleBgCollapsed] = ImVec4(0.10f, 0.10f, 0.10f, 1.0f);
+
+    colors[ImGuiCol_TabSelected] = ImVec4(0.1f, 0.1f, 0.1f, 1.0f);
+    colors[ImGuiCol_TabSelectedOverline] = ImVec4(0.1f, 0.1f, 0.1f, 1.0f);
+    colors[ImGuiCol_TabHovered] = ImVec4(0.5f, 0.5f, 0.5f, 1.0f);
+    colors[ImGuiCol_TabUnfocused] = ImVec4(0.2f, 0.2f, 0.2f, 1.0f);
+    colors[ImGuiCol_TabUnfocusedActive] = ImVec4(0.1f, 0.1f, 0.1f, 1.0f);
+
+    colors[ImGuiCol_Tab] = ImVec4(0.25f, 0.25f, 0.25f, 1.0f);
+    colors[ImGuiCol_TabActive] = ImVec4(0.1f, 0.1f, 0.1f, 1.0f);
+
+    colors[ImGuiCol_DockingPreview] = ImVec4(1.0f, 0.81176f, 0.0f, 0.8f);
+
+    colors[ImGuiCol_Button] = ImVec4(0.25f, 0.25f, 0.25f, 1.0f);
+    colors[ImGuiCol_ButtonHovered] = ImVec4(0.39f, 0.39f, 0.39f, 1.0f);
+    colors[ImGuiCol_ButtonActive] = ImVec4(0.59f, 0.59f, 0.59f, 1.0f);
+}
+
+Panel* ImGuiEditorLayer::GetPanelWithName(std::string pPanelName)
+{
+    auto it = mAllPanels.find(pPanelName);
+    if (it != mAllPanels.end())
+    {
+        return it->second.get();
+    }
+    return nullptr;
+}
+
+void ImGuiEditorLayer::CloseImGui()
+{
+    ImGui_ImplOpenGL3_Shutdown();
+    ImGui_ImplGlfw_Shutdown();
+    ImGui::DestroyContext(mEditorContext);
+    mAllPanels.clear();
+}

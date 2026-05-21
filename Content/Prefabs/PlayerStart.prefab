@@ -1,0 +1,37 @@
+{
+    "name": "PlayerStart",
+    "state": "active",
+    "transform": {
+        "position": [-48, 0, 0],
+        "size": [1, 1, 1],
+        "rotation": [0, 0, -90]
+    },
+    "components": [
+        {
+            "type": "MeshComponent",
+            "componentId": "MeshComponent1",
+            "properties": {
+                "relativePosition" : [0, 0, 0],
+                "relativeRotation" : [0, 0, 0],
+                "mesh" : "64cd0a92-d909-4bb3-aca8-0cf06467e584",
+                "materialInstance": {
+                            "baseMaterial": "443ed7be-dc9d-4992-a3bf-8651b765a054",
+                            "textures": [{
+                                    "name": "albedo",
+                                    "type": "Texture2D",
+                                    "path": "9108356a-451c-4af9-81e4-95c4e7d8cef4"
+                                }]
+                        }
+            }
+        },
+        {
+            "type": "PlayerStartComponent",
+            "componentId": "PlayerStartComponent1",
+            "properties": {
+                "relativePosition": [0, 0, 0],
+                "relativeRotation": [0, 0, 0],
+                "playerPrefab": "d8d3a28d-ed8c-4600-9301-412946ca5450"
+            }
+        }
+    ]
+}

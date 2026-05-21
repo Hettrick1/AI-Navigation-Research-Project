@@ -1,0 +1,1356 @@
+{
+    "player": "60684c94-9c04-43e4-9a92-da877492eed5",
+    "actors": [{
+            "prefabName": "af1ccdf6-1462-4ae0-9b0e-74655b8f5133",
+            "uuid": "4ffcff19-d0dd-4d7f-a843-82d65a2bff92",
+            "name": "PlayerStart",
+            "state": "active",
+            "transform": {
+                "position": [-45.0, 0.0, 1.0],
+                "rotation": [0.0, 0.0, -89.999],
+                "size": [1.0, 1.0, 1.0]
+            },
+            "components": [{
+                    "type": "MeshComponent",
+                    "componentId": "MeshComponent1",
+                    "componentName": "MeshComponent",
+                    "properties": {
+                        "relativePosition": [0.0, 0.0, 0.0],
+                        "relativeSize": [1.0, 1.0, 1.0],
+                        "relativeRotation": [0.0, 0.0, 0.0],
+                        "mesh": "64cd0a92-d909-4bb3-aca8-0cf06467e584",
+                        "materialInstance": {
+                            "baseMaterial": "443ed7be-dc9d-4992-a3bf-8651b765a054",
+                            "textures": [{
+                                    "name": "albedo",
+                                    "type": "Texture2D",
+                                    "path": "9108356a-451c-4af9-81e4-95c4e7d8cef4"
+                                }],
+                            "vec2Properties": [{
+                                    "name": "uTiling",
+                                    "value": [1.0, 1.0]
+                                }]
+                        }
+                    }
+                }, {
+                    "type": "PlayerStartComponent",
+                    "componentId": "PlayerStartComponent1",
+                    "componentName": "PlayerStartComponent",
+                    "properties": {
+                        "relativePosition": [0.0, 0.0, 0.0],
+                        "relativeSize": [1.0, 1.0, 1.0],
+                        "relativeRotation": [0.0, 0.0, 0.0],
+                        "playerPrefab": "60684c94-9c04-43e4-9a92-da877492eed5"
+                    }
+                }]
+        }, {
+            "prefabName": "dc9c03f1-d723-4645-bfce-4125e1fa0dad",
+            "uuid": "8ed57745-f613-4778-8406-f6054df518f3",
+            "name": "SkyBoxActor",
+            "state": "active",
+            "transform": {
+                "position": [0.0, 0.0, 0.0],
+                "rotation": [0.0, 0.0, 0.0],
+                "size": [1.0, 1.0, 1.0]
+            },
+            "components": [{
+                    "type": "SkySphereComponent",
+                    "componentId": "SkySphereComponent1",
+                    "componentName": "SkySphereComponent",
+                    "properties": {
+                        "relativePosition": [0.0, 0.0, 0.0],
+                        "relativeSize": [1.0, 1.0, 1.0],
+                        "relativeRotation": [20.0, 0.0, 0.0],
+                        "isSphere": false,
+                        "materialInstance": {
+                            "baseMaterial": "bb8c892f-e419-492d-836f-7e64002f4a4c",
+                            "textures": [{
+                                    "name": "albedo",
+                                    "type": "Cubemap",
+                                    "paths": ["4ef87470-0a00-4650-a802-0538641c828f", "28234a33-9d8a-41d7-9aeb-6a4973ab1ba7", "21053e8f-5f19-4ff1-822b-8215818d3396", "e0f93b50-fede-46a9-aa16-4605ec790692", "423669f1-6e82-483a-bd60-a73fd988dffe", "a5bb39d9-1145-49ca-ab7e-8e6d96e26129"]
+                                }]
+                        }
+                    }
+                }]
+        }, {
+            "prefabName": "c8b9bae3-14eb-441e-bc51-341ead1f9324",
+            "uuid": "382ed168-76aa-4343-ae37-70f1674aae42",
+            "name": "CubeActor",
+            "state": "active",
+            "actorTags": ["Wall"],
+            "transform": {
+                "position": [0.0, 50.0, 0.8],
+                "rotation": [89.999, 0.0, 0.0],
+                "size": [50.0, 1.0, 1.0]
+            },
+            "components": [{
+                    "type": "MeshComponent",
+                    "componentId": "MeshComponent1",
+                    "componentName": "MeshComponent",
+                    "properties": {
+                        "relativePosition": [0.0, 0.0, 0.0],
+                        "relativeSize": [1.0, 1.0, 1.0],
+                        "relativeRotation": [0.0, 0.0, 0.0],
+                        "mesh": "d66e8308-7299-4ef6-80d2-be12f7d81604",
+                        "materialInstance": {
+                            "baseMaterial": "443ed7be-dc9d-4992-a3bf-8651b765a054",
+                            "textures": [{
+                                    "name": "albedo",
+                                    "type": "Texture2D",
+                                    "path": "ac1c05e7-62a2-4afb-9221-e4fe95b70a2a"
+                                }],
+                            "vec2Properties": [{
+                                    "name": "uTiling",
+                                    "value": [150.0, 6.0]
+                                }]
+                        }
+                    }
+                }, {
+                    "type": "CubeColliderComponent",
+                    "componentId": "CubeColliderComponent1",
+                    "componentName": "CubeColliderComponent",
+                    "properties": {
+                        "relativePosition": [0.0, 0.0, 0.0],
+                        "relativeSize": [1.0, 1.0, 1.0],
+                        "relativeRotation": [0.0, 0.0, 0.0],
+                        "isQuery": false,
+                        "ignoreSelf": true,
+                        "halfExtents": [50.0, 1.0, 1.0]
+                    }
+                }]
+        }, {
+            "prefabName": "c8b9bae3-14eb-441e-bc51-341ead1f9324",
+            "uuid": "72c70e47-ce66-49a2-aad1-a5f8d02590ca",
+            "name": "CubeActor",
+            "state": "active",
+            "actorTags": ["Wall"],
+            "transform": {
+                "position": [0.0, -50.0, 0.8],
+                "rotation": [89.999, 0.0, 0.0],
+                "size": [50.0, 1.0, 1.0]
+            },
+            "components": [{
+                    "type": "MeshComponent",
+                    "componentId": "MeshComponent1",
+                    "componentName": "MeshComponent",
+                    "properties": {
+                        "relativePosition": [0.0, 0.0, 0.0],
+                        "relativeSize": [1.0, 1.0, 1.0],
+                        "relativeRotation": [0.0, 0.0, 0.0],
+                        "mesh": "d66e8308-7299-4ef6-80d2-be12f7d81604",
+                        "materialInstance": {
+                            "baseMaterial": "443ed7be-dc9d-4992-a3bf-8651b765a054",
+                            "textures": [{
+                                    "name": "albedo",
+                                    "type": "Texture2D",
+                                    "path": "ac1c05e7-62a2-4afb-9221-e4fe95b70a2a"
+                                }],
+                            "vec2Properties": [{
+                                    "name": "uTiling",
+                                    "value": [150.0, 6.0]
+                                }]
+                        }
+                    }
+                }, {
+                    "type": "CubeColliderComponent",
+                    "componentId": "CubeColliderComponent1",
+                    "componentName": "CubeColliderComponent",
+                    "properties": {
+                        "relativePosition": [0.0, 0.0, 0.0],
+                        "relativeSize": [1.0, 1.0, 1.0],
+                        "relativeRotation": [0.0, 0.0, 0.0],
+                        "isQuery": false,
+                        "ignoreSelf": true,
+                        "halfExtents": [50.0, 1.0, 1.0]
+                    }
+                }]
+        }, {
+            "prefabName": "c8b9bae3-14eb-441e-bc51-341ead1f9324",
+            "uuid": "bcffc9ea-28d6-430d-9b0d-67c9754762f5",
+            "name": "CubeActor",
+            "state": "active",
+            "actorTags": ["Wall"],
+            "transform": {
+                "position": [50.0, 0.0, 0.8],
+                "rotation": [0.0, 89.98, 0.0],
+                "size": [1.0, 50.0, 1.0]
+            },
+            "components": [{
+                    "type": "MeshComponent",
+                    "componentId": "MeshComponent1",
+                    "componentName": "MeshComponent",
+                    "properties": {
+                        "relativePosition": [0.0, 0.0, 0.0],
+                        "relativeSize": [1.0, 1.0, 1.0],
+                        "relativeRotation": [0.0, 0.0, 0.0],
+                        "mesh": "d66e8308-7299-4ef6-80d2-be12f7d81604",
+                        "materialInstance": {
+                            "baseMaterial": "443ed7be-dc9d-4992-a3bf-8651b765a054",
+                            "textures": [{
+                                    "name": "albedo",
+                                    "type": "Texture2D",
+                                    "path": "ffc6d45b-fb1a-4f4f-bf89-9162d93bcb50"
+                                }],
+                            "vec2Properties": [{
+                                    "name": "uTiling",
+                                    "value": [6.0, 150.0]
+                                }]
+                        }
+                    }
+                }, {
+                    "type": "CubeColliderComponent",
+                    "componentId": "CubeColliderComponent1",
+                    "componentName": "CubeColliderComponent",
+                    "properties": {
+                        "relativePosition": [0.0, 0.0, 0.0],
+                        "relativeSize": [1.0, 1.0, 1.0],
+                        "relativeRotation": [0.0, 0.0, 0.0],
+                        "isQuery": false,
+                        "ignoreSelf": true,
+                        "halfExtents": [1.0, 50.0, 1.0]
+                    }
+                }]
+        }, {
+            "prefabName": "c8b9bae3-14eb-441e-bc51-341ead1f9324",
+            "uuid": "fb9a3585-3ad9-436d-b85a-9672577f574b",
+            "name": "CubeActor",
+            "state": "active",
+            "actorTags": ["Wall"],
+            "transform": {
+                "position": [-50.0, 0.0, 0.8],
+                "rotation": [0.0, 89.98, 0.0],
+                "size": [1.0, 50.0, 1.0]
+            },
+            "components": [{
+                    "type": "MeshComponent",
+                    "componentId": "MeshComponent1",
+                    "componentName": "MeshComponent",
+                    "properties": {
+                        "relativePosition": [0.0, 0.0, 0.0],
+                        "relativeSize": [1.0, 1.0, 1.0],
+                        "relativeRotation": [0.0, 0.0, 0.0],
+                        "mesh": "d66e8308-7299-4ef6-80d2-be12f7d81604",
+                        "materialInstance": {
+                            "baseMaterial": "443ed7be-dc9d-4992-a3bf-8651b765a054",
+                            "textures": [{
+                                    "name": "albedo",
+                                    "type": "Texture2D",
+                                    "path": "ffc6d45b-fb1a-4f4f-bf89-9162d93bcb50"
+                                }],
+                            "vec2Properties": [{
+                                    "name": "uTiling",
+                                    "value": [6.0, 150.0]
+                                }]
+                        }
+                    }
+                }, {
+                    "type": "CubeColliderComponent",
+                    "componentId": "CubeColliderComponent1",
+                    "componentName": "CubeColliderComponent",
+                    "properties": {
+                        "relativePosition": [0.0, 0.0, 0.0],
+                        "relativeSize": [1.0, 1.0, 1.0],
+                        "relativeRotation": [0.0, 0.0, 0.0],
+                        "isQuery": false,
+                        "ignoreSelf": true,
+                        "halfExtents": [1.0, 50.0, 1.0]
+                    }
+                }]
+        }, {
+            "prefabName": "c8b9bae3-14eb-441e-bc51-341ead1f9324",
+            "uuid": "255837f4-9031-4052-aa26-db3104a6775b",
+            "name": "CubeActor",
+            "state": "active",
+            "actorTags": ["Wall"],
+            "transform": {
+                "position": [0.0, -30.0, 0.8],
+                "rotation": [0.0, 89.98, 0.0],
+                "size": [1.0, 20.0, 1.0]
+            },
+            "components": [{
+                    "type": "MeshComponent",
+                    "componentId": "MeshComponent1",
+                    "componentName": "MeshComponent",
+                    "properties": {
+                        "relativePosition": [0.0, 0.0, 0.0],
+                        "relativeSize": [1.0, 1.0, 1.0],
+                        "relativeRotation": [0.0, 0.0, 0.0],
+                        "mesh": "d66e8308-7299-4ef6-80d2-be12f7d81604",
+                        "materialInstance": {
+                            "baseMaterial": "443ed7be-dc9d-4992-a3bf-8651b765a054",
+                            "textures": [{
+                                    "name": "albedo",
+                                    "type": "Texture2D",
+                                    "path": "ffc6d45b-fb1a-4f4f-bf89-9162d93bcb50"
+                                }],
+                            "vec2Properties": [{
+                                    "name": "uTiling",
+                                    "value": [6.0, 150.0]
+                                }]
+                        }
+                    }
+                }, {
+                    "type": "CubeColliderComponent",
+                    "componentId": "CubeColliderComponent1",
+                    "componentName": "CubeColliderComponent",
+                    "properties": {
+                        "relativePosition": [0.0, 0.0, 0.0],
+                        "relativeSize": [1.0, 1.0, 1.0],
+                        "relativeRotation": [0.0, 0.0, 0.0],
+                        "isQuery": false,
+                        "ignoreSelf": true,
+                        "halfExtents": [1.0, 20.0, 1.0]
+                    }
+                }]
+        }, {
+            "prefabName": "c8b9bae3-14eb-441e-bc51-341ead1f9324",
+            "uuid": "6983de18-f548-41b3-8b08-ada1eb2f0152",
+            "name": "CubeActor",
+            "state": "active",
+            "actorTags": ["Wall"],
+            "transform": {
+                "position": [0.0, 30.0, 0.8],
+                "rotation": [0.0, 89.98, 0.0],
+                "size": [1.0, 20.0, 1.0]
+            },
+            "components": [{
+                    "type": "MeshComponent",
+                    "componentId": "MeshComponent1",
+                    "componentName": "MeshComponent",
+                    "properties": {
+                        "relativePosition": [0.0, 0.0, 0.0],
+                        "relativeSize": [1.0, 1.0, 1.0],
+                        "relativeRotation": [0.0, 0.0, 0.0],
+                        "mesh": "d66e8308-7299-4ef6-80d2-be12f7d81604",
+                        "materialInstance": {
+                            "baseMaterial": "443ed7be-dc9d-4992-a3bf-8651b765a054",
+                            "textures": [{
+                                    "name": "albedo",
+                                    "type": "Texture2D",
+                                    "path": "ffc6d45b-fb1a-4f4f-bf89-9162d93bcb50"
+                                }],
+                            "vec2Properties": [{
+                                    "name": "uTiling",
+                                    "value": [6.0, 150.0]
+                                }]
+                        }
+                    }
+                }, {
+                    "type": "CubeColliderComponent",
+                    "componentId": "CubeColliderComponent1",
+                    "componentName": "CubeColliderComponent",
+                    "properties": {
+                        "relativePosition": [0.0, 0.0, 0.0],
+                        "relativeSize": [1.0, 1.0, 1.0],
+                        "relativeRotation": [0.0, 0.0, 0.0],
+                        "isQuery": false,
+                        "ignoreSelf": true,
+                        "halfExtents": [1.0, 20.0, 1.0]
+                    }
+                }]
+        }, {
+            "prefabName": "c8b9bae3-14eb-441e-bc51-341ead1f9324",
+            "uuid": "f2f2c20a-697d-49f2-96e8-4eced9c3cf23",
+            "name": "CubeActor",
+            "state": "active",
+            "actorTags": ["Wall"],
+            "transform": {
+                "position": [0.0, -9.0, 0.8],
+                "rotation": [0.0, 89.98, 0.0],
+                "size": [1.0, 1.0, 1.0]
+            },
+            "components": [{
+                    "type": "MeshComponent",
+                    "componentId": "MeshComponent1",
+                    "componentName": "MeshComponent",
+                    "properties": {
+                        "relativePosition": [0.0, 0.0, 0.0],
+                        "relativeSize": [1.0, 1.0, 1.0],
+                        "relativeRotation": [0.0, 0.0, 0.0],
+                        "mesh": "d66e8308-7299-4ef6-80d2-be12f7d81604",
+                        "materialInstance": {
+                            "baseMaterial": "443ed7be-dc9d-4992-a3bf-8651b765a054",
+                            "textures": [{
+                                    "name": "albedo",
+                                    "type": "Texture2D",
+                                    "path": "ffc6d45b-fb1a-4f4f-bf89-9162d93bcb50"
+                                }],
+                            "vec2Properties": [{
+                                    "name": "uTiling",
+                                    "value": [6.0, 6.0]
+                                }]
+                        }
+                    }
+                }, {
+                    "type": "CubeColliderComponent",
+                    "componentId": "CubeColliderComponent1",
+                    "componentName": "CubeColliderComponent",
+                    "properties": {
+                        "relativePosition": [0.0, 0.0, 0.0],
+                        "relativeSize": [1.0, 1.0, 1.0],
+                        "relativeRotation": [0.0, 0.0, 0.0],
+                        "isQuery": false,
+                        "ignoreSelf": true,
+                        "halfExtents": [1.0, 1.0, 1.0]
+                    }
+                }]
+        }, {
+            "prefabName": "c8b9bae3-14eb-441e-bc51-341ead1f9324",
+            "uuid": "1ab8fcab-2fb9-4391-b081-5edd19304d0d",
+            "name": "CubeActor",
+            "state": "active",
+            "actorTags": ["Wall"],
+            "transform": {
+                "position": [0.0, 9.0, 0.8],
+                "rotation": [0.0, 89.98, 0.0],
+                "size": [1.0, 1.0, 1.0]
+            },
+            "components": [{
+                    "type": "MeshComponent",
+                    "componentId": "MeshComponent1",
+                    "componentName": "MeshComponent",
+                    "properties": {
+                        "relativePosition": [0.0, 0.0, 0.0],
+                        "relativeSize": [1.0, 1.0, 1.0],
+                        "relativeRotation": [0.0, 0.0, 0.0],
+                        "mesh": "d66e8308-7299-4ef6-80d2-be12f7d81604",
+                        "materialInstance": {
+                            "baseMaterial": "443ed7be-dc9d-4992-a3bf-8651b765a054",
+                            "textures": [{
+                                    "name": "albedo",
+                                    "type": "Texture2D",
+                                    "path": "ffc6d45b-fb1a-4f4f-bf89-9162d93bcb50"
+                                }],
+                            "vec2Properties": [{
+                                    "name": "uTiling",
+                                    "value": [6.0, 6.0]
+                                }]
+                        }
+                    }
+                }, {
+                    "type": "CubeColliderComponent",
+                    "componentId": "CubeColliderComponent1",
+                    "componentName": "CubeColliderComponent",
+                    "properties": {
+                        "relativePosition": [0.0, 0.0, 0.0],
+                        "relativeSize": [1.0, 1.0, 1.0],
+                        "relativeRotation": [0.0, 0.0, 0.0],
+                        "isQuery": false,
+                        "ignoreSelf": true,
+                        "halfExtents": [1.0, 1.0, 1.0]
+                    }
+                }]
+        }, {
+            "prefabName": "c8b9bae3-14eb-441e-bc51-341ead1f9324",
+            "uuid": "da2c19b5-2982-4a15-aa61-8a3a45e2997d",
+            "name": "CubeActor",
+            "state": "active",
+            "actorTags": ["Wall", "Ground"],
+            "transform": {
+                "position": [0.0, 0.0, -0.2],
+                "rotation": [0.0, 0.0, 0.0],
+                "size": [50.0, 50.0, 0.1]
+            },
+            "components": [{
+                    "type": "MeshComponent",
+                    "componentId": "MeshComponent1",
+                    "componentName": "MeshComponent",
+                    "properties": {
+                        "relativePosition": [0.0, 0.0, 0.0],
+                        "relativeSize": [1.0, 1.0, 1.0],
+                        "relativeRotation": [0.0, 0.0, 0.0],
+                        "mesh": "d66e8308-7299-4ef6-80d2-be12f7d81604",
+                        "materialInstance": {
+                            "baseMaterial": "443ed7be-dc9d-4992-a3bf-8651b765a054",
+                            "textures": [{
+                                    "name": "albedo",
+                                    "type": "Texture2D",
+                                    "path": "95e33bbf-b7d3-428f-88d4-304dc4d57660"
+                                }],
+                            "vec2Properties": [{
+                                    "name": "uTiling",
+                                    "value": [300.0, 300.0]
+                                }]
+                        }
+                    }
+                }, {
+                    "type": "CubeColliderComponent",
+                    "componentId": "CubeColliderComponent1",
+                    "componentName": "CubeColliderComponent",
+                    "properties": {
+                        "relativePosition": [0.0, 0.0, 0.0],
+                        "relativeSize": [1.0, 1.0, 1.0],
+                        "relativeRotation": [0.0, 0.0, 0.0],
+                        "isQuery": false,
+                        "ignoreSelf": true,
+                        "halfExtents": [50.0, 50.0, 0.1]
+                    }
+                }]
+        }, {
+            "prefabName": "c8b9bae3-14eb-441e-bc51-341ead1f9324",
+            "uuid": "60d7b9c4-bad7-4347-97d8-db8e224e38d3",
+            "name": "CubeActor",
+            "state": "active",
+            "actorTags": ["Wall"],
+            "transform": {
+                "position": [-30.0, 0.0, 0.898],
+                "rotation": [0.0, 0.0, 0.0],
+                "size": [1.0, 1.0, 1.0]
+            },
+            "components": [{
+                    "type": "MeshComponent",
+                    "componentId": "MeshComponent1",
+                    "componentName": "MeshComponent",
+                    "properties": {
+                        "relativePosition": [0.0, 0.0, 0.0],
+                        "relativeSize": [1.0, 1.0, 1.0],
+                        "relativeRotation": [0.0, 0.0, 0.0],
+                        "mesh": "d66e8308-7299-4ef6-80d2-be12f7d81604",
+                        "materialInstance": {
+                            "baseMaterial": "443ed7be-dc9d-4992-a3bf-8651b765a054",
+                            "textures": [{
+                                    "name": "albedo",
+                                    "type": "Texture2D",
+                                    "path": "ffc6d45b-fb1a-4f4f-bf89-9162d93bcb50"
+                                }],
+                            "vec2Properties": [{
+                                    "name": "uTiling",
+                                    "value": [6.0, 6.0]
+                                }]
+                        }
+                    }
+                }, {
+                    "type": "CubeColliderComponent",
+                    "componentId": "CubeColliderComponent1",
+                    "componentName": "CubeColliderComponent",
+                    "properties": {
+                        "relativePosition": [0.0, 0.0, 0.0],
+                        "relativeSize": [1.0, 1.0, 1.0],
+                        "relativeRotation": [0.0, 0.0, 0.0],
+                        "isQuery": false,
+                        "ignoreSelf": true,
+                        "halfExtents": [1.0, 1.0, 1.0]
+                    }
+                }]
+        }, {
+            "prefabName": "c8b9bae3-14eb-441e-bc51-341ead1f9324",
+            "uuid": "28f0e61b-5b11-4429-8045-63a6bfa398ec",
+            "name": "CubeActor",
+            "state": "active",
+            "actorTags": ["Wall"],
+            "transform": {
+                "position": [-48.0, -10.0, 0.8],
+                "rotation": [0.0, 0.0, 0.0],
+                "size": [1.0, 1.0, 1.0]
+            },
+            "components": [{
+                    "type": "MeshComponent",
+                    "componentId": "MeshComponent1",
+                    "componentName": "MeshComponent",
+                    "properties": {
+                        "relativePosition": [0.0, 0.0, 0.0],
+                        "relativeSize": [1.0, 1.0, 1.0],
+                        "relativeRotation": [0.0, 0.0, 0.0],
+                        "mesh": "d66e8308-7299-4ef6-80d2-be12f7d81604",
+                        "materialInstance": {
+                            "baseMaterial": "443ed7be-dc9d-4992-a3bf-8651b765a054",
+                            "textures": [{
+                                    "name": "albedo",
+                                    "type": "Texture2D",
+                                    "path": "ffc6d45b-fb1a-4f4f-bf89-9162d93bcb50"
+                                }],
+                            "vec2Properties": [{
+                                    "name": "uTiling",
+                                    "value": [6.0, 6.0]
+                                }]
+                        }
+                    }
+                }, {
+                    "type": "CubeColliderComponent",
+                    "componentId": "CubeColliderComponent1",
+                    "componentName": "CubeColliderComponent",
+                    "properties": {
+                        "relativePosition": [0.0, 0.0, 0.0],
+                        "relativeSize": [1.0, 1.0, 1.0],
+                        "relativeRotation": [0.0, 0.0, 0.0],
+                        "isQuery": false,
+                        "ignoreSelf": true,
+                        "halfExtents": [1.0, 1.0, 1.0]
+                    }
+                }]
+        }, {
+            "prefabName": "c8b9bae3-14eb-441e-bc51-341ead1f9324",
+            "uuid": "be5c6586-74aa-46b5-8896-968b4a307285",
+            "name": "CubeActor",
+            "state": "active",
+            "actorTags": ["Wall"],
+            "transform": {
+                "position": [-48.0, 10.0, 0.8],
+                "rotation": [0.0, 0.0, 0.0],
+                "size": [1.0, 1.0, 1.0]
+            },
+            "components": [{
+                    "type": "MeshComponent",
+                    "componentId": "MeshComponent1",
+                    "componentName": "MeshComponent",
+                    "properties": {
+                        "relativePosition": [0.0, 0.0, 0.0],
+                        "relativeSize": [1.0, 1.0, 1.0],
+                        "relativeRotation": [0.0, 0.0, 0.0],
+                        "mesh": "d66e8308-7299-4ef6-80d2-be12f7d81604",
+                        "materialInstance": {
+                            "baseMaterial": "443ed7be-dc9d-4992-a3bf-8651b765a054",
+                            "textures": [{
+                                    "name": "albedo",
+                                    "type": "Texture2D",
+                                    "path": "ffc6d45b-fb1a-4f4f-bf89-9162d93bcb50"
+                                }],
+                            "vec2Properties": [{
+                                    "name": "uTiling",
+                                    "value": [6.0, 6.0]
+                                }]
+                        }
+                    }
+                }, {
+                    "type": "CubeColliderComponent",
+                    "componentId": "CubeColliderComponent1",
+                    "componentName": "CubeColliderComponent",
+                    "properties": {
+                        "relativePosition": [0.0, 0.0, 0.0],
+                        "relativeSize": [1.0, 1.0, 1.0],
+                        "relativeRotation": [0.0, 0.0, 0.0],
+                        "isQuery": false,
+                        "ignoreSelf": true,
+                        "halfExtents": [1.0, 1.0, 1.0]
+                    }
+                }]
+        }, {
+            "prefabName": "6335d20d-5374-4782-8123-3a1d9408da1f",
+            "uuid": "571cbbc7-a1fa-4f86-9d95-52ebf251ecd4",
+            "name": "AmoPickUpActor",
+            "state": "active",
+            "transform": {
+                "position": [0.0, 0.0, 1.1],
+                "rotation": [0.0, 0.0, 0.0],
+                "size": [1.0, 1.0, 1.0]
+            },
+            "components": [{
+                    "type": "SpriteComponent",
+                    "componentId": "SpriteComponent1",
+                    "componentName": "SpriteComponent",
+                    "properties": {
+                        "relativePosition": [0.0, 0.0, -0.5],
+                        "relativeSize": [1.0, 1.0, 1.0],
+                        "relativeRotation": [89.999, 0.0, 0.0],
+                        "texture": "501fdf68-cdd4-46e8-9a54-a46ed1660425",
+                        "cullOff": false,
+                        "materialInstance": {
+                            "baseMaterial": "7b717918-73eb-4379-ad3f-2f78afe545ce",
+                            "textures": [{
+                                    "name": "albedo",
+                                    "type": "Texture2D",
+                                    "path": "501fdf68-cdd4-46e8-9a54-a46ed1660425"
+                                }],
+                            "vec4Properties": [{
+                                    "name": "uTint",
+                                    "value": [1.0, 1.0, 1.0, 1.0]
+                                }]
+                        }
+                    }
+                }, {
+                    "type": "PickUpComponent",
+                    "componentId": "PickUpComponent1",
+                    "componentName": "PickUpComponent",
+                    "properties": {
+                        "relativePosition": [0.0, 0.0, 0.0],
+                        "relativeSize": [1.0, 1.0, 1.0],
+                        "relativeRotation": [0.0, 0.0, 0.0],
+                        "type": "amo"
+                    }
+                }, {
+                    "type": "CubeColliderComponent",
+                    "componentId": "CubeColliderComponent1",
+                    "componentName": "CubeColliderComponent",
+                    "properties": {
+                        "relativePosition": [0.0, 0.0, 0.0],
+                        "relativeSize": [1.0, 1.0, 1.0],
+                        "relativeRotation": [0.0, 0.0, 0.0],
+                        "isQuery": true,
+                        "ignoreSelf": true,
+                        "halfExtents": [1.0, 1.0, 1.0]
+                    }
+                }]
+        }, {
+            "prefabName": "9babd13f-d17a-49ae-987d-85004ae67e08",
+            "uuid": "a9dbfe03-6f48-4d9f-8fee-5926478aa528",
+            "name": "HealthPickUpActor",
+            "state": "active",
+            "transform": {
+                "position": [-20.0, -30.0, 1.1],
+                "rotation": [0.0, 0.0, 0.0],
+                "size": [1.0, 1.0, 1.0]
+            },
+            "components": [{
+                    "type": "SpriteComponent",
+                    "componentId": "SpriteComponent1",
+                    "componentName": "SpriteComponent",
+                    "properties": {
+                        "relativePosition": [0.0, 0.0, -0.5],
+                        "relativeSize": [1.0, 1.0, 1.0],
+                        "relativeRotation": [89.999, 0.0, 0.0],
+                        "texture": "ef45d0e3-334a-4943-a92a-ebcecb820f60",
+                        "cullOff": false,
+                        "materialInstance": {
+                            "baseMaterial": "7b717918-73eb-4379-ad3f-2f78afe545ce",
+                            "textures": [{
+                                    "name": "albedo",
+                                    "type": "Texture2D",
+                                    "path": "ef45d0e3-334a-4943-a92a-ebcecb820f60"
+                                }],
+                            "vec4Properties": [{
+                                    "name": "uTint",
+                                    "value": [1.0, 1.0, 1.0, 1.0]
+                                }]
+                        }
+                    }
+                }, {
+                    "type": "PickUpComponent",
+                    "componentId": "PickUpComponent1",
+                    "componentName": "PickUpComponent",
+                    "properties": {
+                        "relativePosition": [0.0, 0.0, 0.0],
+                        "relativeSize": [1.0, 1.0, 1.0],
+                        "relativeRotation": [0.0, 0.0, 0.0],
+                        "type": "health"
+                    }
+                }, {
+                    "type": "CubeColliderComponent",
+                    "componentId": "CubeColliderComponent1",
+                    "componentName": "CubeColliderComponent",
+                    "properties": {
+                        "relativePosition": [0.0, 0.0, 0.0],
+                        "relativeSize": [1.0, 1.0, 1.0],
+                        "relativeRotation": [0.0, 0.0, 0.0],
+                        "isQuery": true,
+                        "ignoreSelf": true,
+                        "halfExtents": [1.0, 1.0, 1.0]
+                    }
+                }]
+        }, {
+            "prefabName": "9babd13f-d17a-49ae-987d-85004ae67e08",
+            "uuid": "10dbd0c2-03af-45f8-bf6a-5237f964ad59",
+            "name": "HealthPickUpActor",
+            "state": "active",
+            "transform": {
+                "position": [-20.0, 30.0, 1.1],
+                "rotation": [0.0, 0.0, 0.0],
+                "size": [1.0, 1.0, 1.0]
+            },
+            "components": [{
+                    "type": "SpriteComponent",
+                    "componentId": "SpriteComponent1",
+                    "componentName": "SpriteComponent",
+                    "properties": {
+                        "relativePosition": [0.0, 0.0, -0.5],
+                        "relativeSize": [1.0, 1.0, 1.0],
+                        "relativeRotation": [89.999, 0.0, 0.0],
+                        "texture": "ef45d0e3-334a-4943-a92a-ebcecb820f60",
+                        "cullOff": false,
+                        "materialInstance": {
+                            "baseMaterial": "7b717918-73eb-4379-ad3f-2f78afe545ce",
+                            "textures": [{
+                                    "name": "albedo",
+                                    "type": "Texture2D",
+                                    "path": "ef45d0e3-334a-4943-a92a-ebcecb820f60"
+                                }],
+                            "vec4Properties": [{
+                                    "name": "uTint",
+                                    "value": [1.0, 1.0, 1.0, 1.0]
+                                }]
+                        }
+                    }
+                }, {
+                    "type": "PickUpComponent",
+                    "componentId": "PickUpComponent1",
+                    "componentName": "PickUpComponent",
+                    "properties": {
+                        "relativePosition": [0.0, 0.0, 0.0],
+                        "relativeSize": [1.0, 1.0, 1.0],
+                        "relativeRotation": [0.0, 0.0, 0.0],
+                        "type": "health"
+                    }
+                }, {
+                    "type": "CubeColliderComponent",
+                    "componentId": "CubeColliderComponent1",
+                    "componentName": "CubeColliderComponent",
+                    "properties": {
+                        "relativePosition": [0.0, 0.0, 0.0],
+                        "relativeSize": [1.0, 1.0, 1.0],
+                        "relativeRotation": [0.0, 0.0, 0.0],
+                        "isQuery": true,
+                        "ignoreSelf": true,
+                        "halfExtents": [1.0, 1.0, 1.0]
+                    }
+                }]
+        }, {
+            "prefabName": "de0fc925-51f1-4aff-b23b-bbbf61829715",
+            "uuid": "dc55e018-2d33-445a-98ba-bc59fe2bed83",
+            "name": "ShieldPickUpActor",
+            "state": "active",
+            "transform": {
+                "position": [-40.0, -40.0, 1.1],
+                "rotation": [0.0, 0.0, 0.0],
+                "size": [1.0, 1.0, 1.0]
+            },
+            "components": [{
+                    "type": "SpriteComponent",
+                    "componentId": "SpriteComponent1",
+                    "componentName": "SpriteComponent",
+                    "properties": {
+                        "relativePosition": [0.0, 0.0, -0.5],
+                        "relativeSize": [1.0, 1.0, 1.0],
+                        "relativeRotation": [89.999, 0.0, 0.0],
+                        "texture": "ee740071-4db6-4c5d-a517-d984361a4170",
+                        "cullOff": false,
+                        "materialInstance": {
+                            "baseMaterial": "7b717918-73eb-4379-ad3f-2f78afe545ce",
+                            "textures": [{
+                                    "name": "albedo",
+                                    "type": "Texture2D",
+                                    "path": "ee740071-4db6-4c5d-a517-d984361a4170"
+                                }],
+                            "vec4Properties": [{
+                                    "name": "uTint",
+                                    "value": [1.0, 1.0, 1.0, 1.0]
+                                }]
+                        }
+                    }
+                }, {
+                    "type": "PickUpComponent",
+                    "componentId": "PickUpComponent1",
+                    "componentName": "PickUpComponent",
+                    "properties": {
+                        "relativePosition": [0.0, 0.0, 0.0],
+                        "relativeSize": [1.0, 1.0, 1.0],
+                        "relativeRotation": [0.0, 0.0, 0.0],
+                        "type": "shield"
+                    }
+                }, {
+                    "type": "CubeColliderComponent",
+                    "componentId": "CubeColliderComponent1",
+                    "componentName": "CubeColliderComponent",
+                    "properties": {
+                        "relativePosition": [0.0, 0.0, 0.0],
+                        "relativeSize": [1.0, 1.0, 1.0],
+                        "relativeRotation": [0.0, 0.0, 0.0],
+                        "isQuery": true,
+                        "ignoreSelf": true,
+                        "halfExtents": [1.0, 1.0, 1.0]
+                    }
+                }]
+        }, {
+            "prefabName": "de0fc925-51f1-4aff-b23b-bbbf61829715",
+            "uuid": "d98631d1-adc0-4ec7-8eca-d6655eb5941b",
+            "name": "ShieldPickUpActor",
+            "state": "active",
+            "transform": {
+                "position": [-40.0, 40.0, 1.1],
+                "rotation": [0.0, 0.0, 0.0],
+                "size": [1.0, 1.0, 1.0]
+            },
+            "components": [{
+                    "type": "SpriteComponent",
+                    "componentId": "SpriteComponent1",
+                    "componentName": "SpriteComponent",
+                    "properties": {
+                        "relativePosition": [0.0, 0.0, -0.5],
+                        "relativeSize": [1.0, 1.0, 1.0],
+                        "relativeRotation": [89.999, 0.0, 0.0],
+                        "texture": "ee740071-4db6-4c5d-a517-d984361a4170",
+                        "cullOff": false,
+                        "materialInstance": {
+                            "baseMaterial": "7b717918-73eb-4379-ad3f-2f78afe545ce",
+                            "textures": [{
+                                    "name": "albedo",
+                                    "type": "Texture2D",
+                                    "path": "ee740071-4db6-4c5d-a517-d984361a4170"
+                                }],
+                            "vec4Properties": [{
+                                    "name": "uTint",
+                                    "value": [1.0, 1.0, 1.0, 1.0]
+                                }]
+                        }
+                    }
+                }, {
+                    "type": "PickUpComponent",
+                    "componentId": "PickUpComponent1",
+                    "componentName": "PickUpComponent",
+                    "properties": {
+                        "relativePosition": [0.0, 0.0, 0.0],
+                        "relativeSize": [1.0, 1.0, 1.0],
+                        "relativeRotation": [0.0, 0.0, 0.0],
+                        "type": "shield"
+                    }
+                }, {
+                    "type": "CubeColliderComponent",
+                    "componentId": "CubeColliderComponent1",
+                    "componentName": "CubeColliderComponent",
+                    "properties": {
+                        "relativePosition": [0.0, 0.0, 0.0],
+                        "relativeSize": [1.0, 1.0, 1.0],
+                        "relativeRotation": [0.0, 0.0, 0.0],
+                        "isQuery": true,
+                        "ignoreSelf": true,
+                        "halfExtents": [1.0, 1.0, 1.0]
+                    }
+                }]
+        }, {
+            "prefabName": "25ff3acb-88c5-442d-a4df-358d7cadbb24",
+            "uuid": "ffa26689-c808-44ed-9b4f-0564bd7014e4",
+            "name": "DoomEnemyActor",
+            "state": "active",
+            "actorTags": ["Enemy"],
+            "transform": {
+                "position": [-10.0, -20.0, 1.1],
+                "rotation": [0.0, 0.0, -89.999],
+                "size": [1.0, 1.0, 1.0]
+            },
+            "components": [{
+                    "type": "FlipbookComponent",
+                    "componentId": "FlipbookComponent1",
+                    "componentName": "FlipbookComponent",
+                    "properties": {
+                        "relativePosition": [0.0, 0.0, 0.2],
+                        "relativeSize": [2.5, 2.5, 2.5],
+                        "relativeRotation": [89.999, 0.0, 0.0],
+                        "tags": ["enemyFB"],
+                        "cullOff": false,
+                        "textures": ["45d26e70-f03b-4501-abc2-58af1fc4a066", "783d60ee-de97-40b0-ac23-512221bddd71"],
+                        "animFps": 4.0,
+                        "isLooping": false,
+                        "materialInstance": {
+                            "baseMaterial": "7b717918-73eb-4379-ad3f-2f78afe545ce",
+                            "textures": [{
+                                    "name": "albedo",
+                                    "type": "Texture2D",
+                                    "path": "45d26e70-f03b-4501-abc2-58af1fc4a066"
+                                }],
+                            "vec4Properties": [{
+                                    "name": "uTint",
+                                    "value": [1.0, 1.0, 1.0, 1.0]
+                                }]
+                        }
+                    }
+                }, {
+                    "type": "FlipbookComponent",
+                    "componentId": "FlipbookComponent2",
+                    "componentName": "FlipbookComponent",
+                    "properties": {
+                        "relativePosition": [0.0, 0.1, 0.3],
+                        "relativeSize": [1.299, 1.299, 1.299],
+                        "relativeRotation": [89.999, 0.0, 0.0],
+                        "cullOff": false,
+                        "textures": ["017c2e03-589d-4bfa-942f-1f9ef48a6e5f", "23cb5803-fe50-4a98-b51a-98b4415cb095", "23f1e6b3-cf8a-4b79-b1b6-b6c08bad3456", "685f76e3-c3da-4b3f-9be3-5c5df4e4520a", "5ee757e9-624d-444b-a5ae-b05509dddc2b", "b72df671-3cff-44a8-9c9a-98aaaa32cc57", "207c552f-5805-4522-bb8e-904322a621db", "c020591a-e935-40b4-bbbf-2ca7a0ef3593", "178e84b3-7b00-449a-a9d7-7239f8822ec1", "bf9347e5-dc68-49c3-bcae-2cfd3c230c22", "48117d67-793f-49ec-8950-ec0ff0eb3fb7", "15d7670f-33ca-47ff-9288-a8b40a621463", "4f1012f2-3e1c-4605-b4de-96d3d7253967", "fd6b9dd6-6306-4872-b90c-daea32b576e6", "73bb1dcb-a8ad-43f1-9aee-2b4c9b1f4460", "a129889b-0d10-4cd7-a410-801fc50729bc", "b01e1c28-feb4-4c1c-9b12-9381587dd737", "e902376e-c4a3-4638-8963-932f0849ff5e", "9702a9ad-633b-43c1-9fe0-6ea7fb4dff0f", "0385f06f-321e-4a70-a91b-386f8829e0e1", "87f50858-9ac5-4d1a-bd86-0ec27b650027", "a97af031-715f-4e81-9171-f470c27a79b0", "214ce23e-a55c-4915-9285-cc82304f8e55"],
+                        "animFps": 40.0,
+                        "isLooping": false,
+                        "materialInstance": {
+                            "baseMaterial": "7b717918-73eb-4379-ad3f-2f78afe545ce",
+                            "textures": [{
+                                    "name": "albedo",
+                                    "type": "Texture2D",
+                                    "path": "017c2e03-589d-4bfa-942f-1f9ef48a6e5f"
+                                }],
+                            "vec4Properties": [{
+                                    "name": "uTint",
+                                    "value": [1.0, 1.0, 1.0, 1.0]
+                                }]
+                        }
+                    }
+                }, {
+                    "type": "CapsuleColliderComponent",
+                    "componentId": "CapsuleColliderComponent1",
+                    "componentName": "CapsuleColliderComponent",
+                    "properties": {
+                        "relativePosition": [0.0, 0.0, 0.2],
+                        "relativeSize": [1.0, 1.0, 1.0],
+                        "relativeRotation": [0.0, 0.0, 0.0],
+                        "isQuery": false,
+                        "ignoreSelf": true,
+                        "radius": 0.6,
+                        "height": 1.2
+                    }
+                }, {
+                    "type": "DoomEnemyComponent",
+                    "componentId": "DoomEnemyComponent1",
+                    "componentName": "DoomEnemyComponent",
+                    "properties": {
+                        "relativePosition": [0.0, 0.0, 0.0],
+                        "relativeSize": [1.0, 1.0, 1.0],
+                        "relativeRotation": [0.0, 0.0, 0.0]
+                    }
+                }]
+        }, {
+            "prefabName": "25ff3acb-88c5-442d-a4df-358d7cadbb24",
+            "uuid": "2f6d7897-4aac-41f0-b0ba-5a07261cb747",
+            "name": "DoomEnemyActor",
+            "state": "active",
+            "actorTags": ["Enemy"],
+            "transform": {
+                "position": [-10.0, 20.0, 1.1],
+                "rotation": [0.0, 0.0, -89.999],
+                "size": [1.0, 1.0, 1.0]
+            },
+            "components": [{
+                    "type": "FlipbookComponent",
+                    "componentId": "FlipbookComponent1",
+                    "componentName": "FlipbookComponent",
+                    "properties": {
+                        "relativePosition": [0.0, 0.0, 0.2],
+                        "relativeSize": [2.5, 2.5, 2.5],
+                        "relativeRotation": [89.999, 0.0, 0.0],
+                        "tags": ["enemyFB"],
+                        "cullOff": false,
+                        "textures": ["45d26e70-f03b-4501-abc2-58af1fc4a066", "783d60ee-de97-40b0-ac23-512221bddd71"],
+                        "animFps": 4.0,
+                        "isLooping": false,
+                        "materialInstance": {
+                            "baseMaterial": "7b717918-73eb-4379-ad3f-2f78afe545ce",
+                            "textures": [{
+                                    "name": "albedo",
+                                    "type": "Texture2D",
+                                    "path": "45d26e70-f03b-4501-abc2-58af1fc4a066"
+                                }],
+                            "vec4Properties": [{
+                                    "name": "uTint",
+                                    "value": [1.0, 1.0, 1.0, 1.0]
+                                }]
+                        }
+                    }
+                }, {
+                    "type": "FlipbookComponent",
+                    "componentId": "FlipbookComponent2",
+                    "componentName": "FlipbookComponent",
+                    "properties": {
+                        "relativePosition": [0.0, 0.1, 0.3],
+                        "relativeSize": [1.299, 1.299, 1.299],
+                        "relativeRotation": [89.999, 0.0, 0.0],
+                        "cullOff": false,
+                        "textures": ["017c2e03-589d-4bfa-942f-1f9ef48a6e5f", "23cb5803-fe50-4a98-b51a-98b4415cb095", "23f1e6b3-cf8a-4b79-b1b6-b6c08bad3456", "685f76e3-c3da-4b3f-9be3-5c5df4e4520a", "5ee757e9-624d-444b-a5ae-b05509dddc2b", "b72df671-3cff-44a8-9c9a-98aaaa32cc57", "207c552f-5805-4522-bb8e-904322a621db", "c020591a-e935-40b4-bbbf-2ca7a0ef3593", "178e84b3-7b00-449a-a9d7-7239f8822ec1", "bf9347e5-dc68-49c3-bcae-2cfd3c230c22", "48117d67-793f-49ec-8950-ec0ff0eb3fb7", "15d7670f-33ca-47ff-9288-a8b40a621463", "4f1012f2-3e1c-4605-b4de-96d3d7253967", "fd6b9dd6-6306-4872-b90c-daea32b576e6", "73bb1dcb-a8ad-43f1-9aee-2b4c9b1f4460", "a129889b-0d10-4cd7-a410-801fc50729bc", "b01e1c28-feb4-4c1c-9b12-9381587dd737", "e902376e-c4a3-4638-8963-932f0849ff5e", "9702a9ad-633b-43c1-9fe0-6ea7fb4dff0f", "0385f06f-321e-4a70-a91b-386f8829e0e1", "87f50858-9ac5-4d1a-bd86-0ec27b650027", "a97af031-715f-4e81-9171-f470c27a79b0", "214ce23e-a55c-4915-9285-cc82304f8e55"],
+                        "animFps": 40.0,
+                        "isLooping": false,
+                        "materialInstance": {
+                            "baseMaterial": "7b717918-73eb-4379-ad3f-2f78afe545ce",
+                            "textures": [{
+                                    "name": "albedo",
+                                    "type": "Texture2D",
+                                    "path": "017c2e03-589d-4bfa-942f-1f9ef48a6e5f"
+                                }],
+                            "vec4Properties": [{
+                                    "name": "uTint",
+                                    "value": [1.0, 1.0, 1.0, 1.0]
+                                }]
+                        }
+                    }
+                }, {
+                    "type": "CapsuleColliderComponent",
+                    "componentId": "CapsuleColliderComponent1",
+                    "componentName": "CapsuleColliderComponent",
+                    "properties": {
+                        "relativePosition": [0.0, 0.0, 0.2],
+                        "relativeSize": [1.0, 1.0, 1.0],
+                        "relativeRotation": [0.0, 0.0, 0.0],
+                        "isQuery": false,
+                        "ignoreSelf": true,
+                        "radius": 0.6,
+                        "height": 1.2
+                    }
+                }, {
+                    "type": "DoomEnemyComponent",
+                    "componentId": "DoomEnemyComponent1",
+                    "componentName": "DoomEnemyComponent",
+                    "properties": {
+                        "relativePosition": [0.0, 0.0, 0.0],
+                        "relativeSize": [1.0, 1.0, 1.0],
+                        "relativeRotation": [0.0, 0.0, 0.0]
+                    }
+                }]
+        }, {
+            "prefabName": "25ff3acb-88c5-442d-a4df-358d7cadbb24",
+            "uuid": "6bb18741-744d-4652-818d-267ae1193ac6",
+            "name": "DoomEnemyActor",
+            "state": "active",
+            "actorTags": ["Enemy"],
+            "transform": {
+                "position": [-15.0, 0.0, 1.1],
+                "rotation": [0.0, 0.0, -89.999],
+                "size": [1.0, 1.0, 1.0]
+            },
+            "components": [{
+                    "type": "FlipbookComponent",
+                    "componentId": "FlipbookComponent1",
+                    "componentName": "FlipbookComponent",
+                    "properties": {
+                        "relativePosition": [0.0, 0.0, 0.2],
+                        "relativeSize": [2.5, 2.5, 2.5],
+                        "relativeRotation": [89.999, 0.0, 0.0],
+                        "tags": ["enemyFB"],
+                        "cullOff": false,
+                        "textures": ["45d26e70-f03b-4501-abc2-58af1fc4a066", "783d60ee-de97-40b0-ac23-512221bddd71"],
+                        "animFps": 4.0,
+                        "isLooping": false,
+                        "materialInstance": {
+                            "baseMaterial": "7b717918-73eb-4379-ad3f-2f78afe545ce",
+                            "textures": [{
+                                    "name": "albedo",
+                                    "type": "Texture2D",
+                                    "path": "45d26e70-f03b-4501-abc2-58af1fc4a066"
+                                }],
+                            "vec4Properties": [{
+                                    "name": "uTint",
+                                    "value": [1.0, 1.0, 1.0, 1.0]
+                                }]
+                        }
+                    }
+                }, {
+                    "type": "FlipbookComponent",
+                    "componentId": "FlipbookComponent2",
+                    "componentName": "FlipbookComponent",
+                    "properties": {
+                        "relativePosition": [0.0, 0.1, 0.3],
+                        "relativeSize": [1.299, 1.299, 1.299],
+                        "relativeRotation": [89.999, 0.0, 0.0],
+                        "cullOff": false,
+                        "textures": ["017c2e03-589d-4bfa-942f-1f9ef48a6e5f", "23cb5803-fe50-4a98-b51a-98b4415cb095", "23f1e6b3-cf8a-4b79-b1b6-b6c08bad3456", "685f76e3-c3da-4b3f-9be3-5c5df4e4520a", "5ee757e9-624d-444b-a5ae-b05509dddc2b", "b72df671-3cff-44a8-9c9a-98aaaa32cc57", "207c552f-5805-4522-bb8e-904322a621db", "c020591a-e935-40b4-bbbf-2ca7a0ef3593", "178e84b3-7b00-449a-a9d7-7239f8822ec1", "bf9347e5-dc68-49c3-bcae-2cfd3c230c22", "48117d67-793f-49ec-8950-ec0ff0eb3fb7", "15d7670f-33ca-47ff-9288-a8b40a621463", "4f1012f2-3e1c-4605-b4de-96d3d7253967", "fd6b9dd6-6306-4872-b90c-daea32b576e6", "73bb1dcb-a8ad-43f1-9aee-2b4c9b1f4460", "a129889b-0d10-4cd7-a410-801fc50729bc", "b01e1c28-feb4-4c1c-9b12-9381587dd737", "e902376e-c4a3-4638-8963-932f0849ff5e", "9702a9ad-633b-43c1-9fe0-6ea7fb4dff0f", "0385f06f-321e-4a70-a91b-386f8829e0e1", "87f50858-9ac5-4d1a-bd86-0ec27b650027", "a97af031-715f-4e81-9171-f470c27a79b0", "214ce23e-a55c-4915-9285-cc82304f8e55"],
+                        "animFps": 40.0,
+                        "isLooping": false,
+                        "materialInstance": {
+                            "baseMaterial": "7b717918-73eb-4379-ad3f-2f78afe545ce",
+                            "textures": [{
+                                    "name": "albedo",
+                                    "type": "Texture2D",
+                                    "path": "017c2e03-589d-4bfa-942f-1f9ef48a6e5f"
+                                }],
+                            "vec4Properties": [{
+                                    "name": "uTint",
+                                    "value": [1.0, 1.0, 1.0, 1.0]
+                                }]
+                        }
+                    }
+                }, {
+                    "type": "CapsuleColliderComponent",
+                    "componentId": "CapsuleColliderComponent1",
+                    "componentName": "CapsuleColliderComponent",
+                    "properties": {
+                        "relativePosition": [0.0, 0.0, 0.2],
+                        "relativeSize": [1.0, 1.0, 1.0],
+                        "relativeRotation": [0.0, 0.0, 0.0],
+                        "isQuery": false,
+                        "ignoreSelf": true,
+                        "radius": 0.6,
+                        "height": 1.2
+                    }
+                }, {
+                    "type": "DoomEnemyComponent",
+                    "componentId": "DoomEnemyComponent1",
+                    "componentName": "DoomEnemyComponent",
+                    "properties": {
+                        "relativePosition": [0.0, 0.0, 0.0],
+                        "relativeSize": [1.0, 1.0, 1.0],
+                        "relativeRotation": [0.0, 0.0, 0.0]
+                    }
+                }]
+        }, {
+            "prefabName": "25ff3acb-88c5-442d-a4df-358d7cadbb24",
+            "uuid": "50a7b92c-9b99-4fe8-bda8-efdba90924cb",
+            "name": "DoomEnemyActor",
+            "state": "active",
+            "actorTags": ["Enemy"],
+            "transform": {
+                "position": [-45.0, -45.0, 1.1],
+                "rotation": [0.0, 0.0, -89.999],
+                "size": [1.0, 1.0, 1.0]
+            },
+            "components": [{
+                    "type": "FlipbookComponent",
+                    "componentId": "FlipbookComponent1",
+                    "componentName": "FlipbookComponent",
+                    "properties": {
+                        "relativePosition": [0.0, 0.0, 0.2],
+                        "relativeSize": [2.5, 2.5, 2.5],
+                        "relativeRotation": [89.999, 0.0, 0.0],
+                        "tags": ["enemyFB"],
+                        "cullOff": false,
+                        "textures": ["45d26e70-f03b-4501-abc2-58af1fc4a066", "783d60ee-de97-40b0-ac23-512221bddd71"],
+                        "animFps": 4.0,
+                        "isLooping": false,
+                        "materialInstance": {
+                            "baseMaterial": "7b717918-73eb-4379-ad3f-2f78afe545ce",
+                            "textures": [{
+                                    "name": "albedo",
+                                    "type": "Texture2D",
+                                    "path": "45d26e70-f03b-4501-abc2-58af1fc4a066"
+                                }],
+                            "vec4Properties": [{
+                                    "name": "uTint",
+                                    "value": [1.0, 1.0, 1.0, 1.0]
+                                }]
+                        }
+                    }
+                }, {
+                    "type": "FlipbookComponent",
+                    "componentId": "FlipbookComponent2",
+                    "componentName": "FlipbookComponent",
+                    "properties": {
+                        "relativePosition": [0.0, 0.1, 0.3],
+                        "relativeSize": [1.299, 1.299, 1.299],
+                        "relativeRotation": [89.999, 0.0, 0.0],
+                        "cullOff": false,
+                        "textures": ["017c2e03-589d-4bfa-942f-1f9ef48a6e5f", "23cb5803-fe50-4a98-b51a-98b4415cb095", "23f1e6b3-cf8a-4b79-b1b6-b6c08bad3456", "685f76e3-c3da-4b3f-9be3-5c5df4e4520a", "5ee757e9-624d-444b-a5ae-b05509dddc2b", "b72df671-3cff-44a8-9c9a-98aaaa32cc57", "207c552f-5805-4522-bb8e-904322a621db", "c020591a-e935-40b4-bbbf-2ca7a0ef3593", "178e84b3-7b00-449a-a9d7-7239f8822ec1", "bf9347e5-dc68-49c3-bcae-2cfd3c230c22", "48117d67-793f-49ec-8950-ec0ff0eb3fb7", "15d7670f-33ca-47ff-9288-a8b40a621463", "4f1012f2-3e1c-4605-b4de-96d3d7253967", "fd6b9dd6-6306-4872-b90c-daea32b576e6", "73bb1dcb-a8ad-43f1-9aee-2b4c9b1f4460", "a129889b-0d10-4cd7-a410-801fc50729bc", "b01e1c28-feb4-4c1c-9b12-9381587dd737", "e902376e-c4a3-4638-8963-932f0849ff5e", "9702a9ad-633b-43c1-9fe0-6ea7fb4dff0f", "0385f06f-321e-4a70-a91b-386f8829e0e1", "87f50858-9ac5-4d1a-bd86-0ec27b650027", "a97af031-715f-4e81-9171-f470c27a79b0", "214ce23e-a55c-4915-9285-cc82304f8e55"],
+                        "animFps": 40.0,
+                        "isLooping": false,
+                        "materialInstance": {
+                            "baseMaterial": "7b717918-73eb-4379-ad3f-2f78afe545ce",
+                            "textures": [{
+                                    "name": "albedo",
+                                    "type": "Texture2D",
+                                    "path": "017c2e03-589d-4bfa-942f-1f9ef48a6e5f"
+                                }],
+                            "vec4Properties": [{
+                                    "name": "uTint",
+                                    "value": [1.0, 1.0, 1.0, 1.0]
+                                }]
+                        }
+                    }
+                }, {
+                    "type": "CapsuleColliderComponent",
+                    "componentId": "CapsuleColliderComponent1",
+                    "componentName": "CapsuleColliderComponent",
+                    "properties": {
+                        "relativePosition": [0.0, 0.0, 0.2],
+                        "relativeSize": [1.0, 1.0, 1.0],
+                        "relativeRotation": [0.0, 0.0, 0.0],
+                        "isQuery": false,
+                        "ignoreSelf": true,
+                        "radius": 0.6,
+                        "height": 1.2
+                    }
+                }, {
+                    "type": "DoomEnemyComponent",
+                    "componentId": "DoomEnemyComponent1",
+                    "componentName": "DoomEnemyComponent",
+                    "properties": {
+                        "relativePosition": [0.0, 0.0, 0.0],
+                        "relativeSize": [1.0, 1.0, 1.0],
+                        "relativeRotation": [0.0, 0.0, 0.0]
+                    }
+                }]
+        }, {
+            "prefabName": "25ff3acb-88c5-442d-a4df-358d7cadbb24",
+            "uuid": "fee8208f-a737-4575-9581-1890be43c974",
+            "name": "DoomEnemyActor",
+            "state": "active",
+            "actorTags": ["Enemy"],
+            "transform": {
+                "position": [-45.0, 45.0, 1.1],
+                "rotation": [0.0, 0.0, -89.999],
+                "size": [1.0, 1.0, 1.0]
+            },
+            "components": [{
+                    "type": "FlipbookComponent",
+                    "componentId": "FlipbookComponent1",
+                    "componentName": "FlipbookComponent",
+                    "properties": {
+                        "relativePosition": [0.0, 0.0, 0.2],
+                        "relativeSize": [2.5, 2.5, 2.5],
+                        "relativeRotation": [89.999, 0.0, 0.0],
+                        "tags": ["enemyFB"],
+                        "cullOff": false,
+                        "textures": ["45d26e70-f03b-4501-abc2-58af1fc4a066", "783d60ee-de97-40b0-ac23-512221bddd71"],
+                        "animFps": 4.0,
+                        "isLooping": false,
+                        "materialInstance": {
+                            "baseMaterial": "7b717918-73eb-4379-ad3f-2f78afe545ce",
+                            "textures": [{
+                                    "name": "albedo",
+                                    "type": "Texture2D",
+                                    "path": "45d26e70-f03b-4501-abc2-58af1fc4a066"
+                                }],
+                            "vec4Properties": [{
+                                    "name": "uTint",
+                                    "value": [1.0, 1.0, 1.0, 1.0]
+                                }]
+                        }
+                    }
+                }, {
+                    "type": "FlipbookComponent",
+                    "componentId": "FlipbookComponent2",
+                    "componentName": "FlipbookComponent",
+                    "properties": {
+                        "relativePosition": [0.0, 0.1, 0.3],
+                        "relativeSize": [1.299, 1.299, 1.299],
+                        "relativeRotation": [89.999, 0.0, 0.0],
+                        "cullOff": false,
+                        "textures": ["017c2e03-589d-4bfa-942f-1f9ef48a6e5f", "23cb5803-fe50-4a98-b51a-98b4415cb095", "23f1e6b3-cf8a-4b79-b1b6-b6c08bad3456", "685f76e3-c3da-4b3f-9be3-5c5df4e4520a", "5ee757e9-624d-444b-a5ae-b05509dddc2b", "b72df671-3cff-44a8-9c9a-98aaaa32cc57", "207c552f-5805-4522-bb8e-904322a621db", "c020591a-e935-40b4-bbbf-2ca7a0ef3593", "178e84b3-7b00-449a-a9d7-7239f8822ec1", "bf9347e5-dc68-49c3-bcae-2cfd3c230c22", "48117d67-793f-49ec-8950-ec0ff0eb3fb7", "15d7670f-33ca-47ff-9288-a8b40a621463", "4f1012f2-3e1c-4605-b4de-96d3d7253967", "fd6b9dd6-6306-4872-b90c-daea32b576e6", "73bb1dcb-a8ad-43f1-9aee-2b4c9b1f4460", "a129889b-0d10-4cd7-a410-801fc50729bc", "b01e1c28-feb4-4c1c-9b12-9381587dd737", "e902376e-c4a3-4638-8963-932f0849ff5e", "9702a9ad-633b-43c1-9fe0-6ea7fb4dff0f", "0385f06f-321e-4a70-a91b-386f8829e0e1", "87f50858-9ac5-4d1a-bd86-0ec27b650027", "a97af031-715f-4e81-9171-f470c27a79b0", "214ce23e-a55c-4915-9285-cc82304f8e55"],
+                        "animFps": 40.0,
+                        "isLooping": false,
+                        "materialInstance": {
+                            "baseMaterial": "7b717918-73eb-4379-ad3f-2f78afe545ce",
+                            "textures": [{
+                                    "name": "albedo",
+                                    "type": "Texture2D",
+                                    "path": "017c2e03-589d-4bfa-942f-1f9ef48a6e5f"
+                                }],
+                            "vec4Properties": [{
+                                    "name": "uTint",
+                                    "value": [1.0, 1.0, 1.0, 1.0]
+                                }]
+                        }
+                    }
+                }, {
+                    "type": "CapsuleColliderComponent",
+                    "componentId": "CapsuleColliderComponent1",
+                    "componentName": "CapsuleColliderComponent",
+                    "properties": {
+                        "relativePosition": [0.0, 0.0, 0.2],
+                        "relativeSize": [1.0, 1.0, 1.0],
+                        "relativeRotation": [0.0, 0.0, 0.0],
+                        "isQuery": false,
+                        "ignoreSelf": true,
+                        "radius": 0.6,
+                        "height": 1.2
+                    }
+                }, {
+                    "type": "DoomEnemyComponent",
+                    "componentId": "DoomEnemyComponent1",
+                    "componentName": "DoomEnemyComponent",
+                    "properties": {
+                        "relativePosition": [0.0, 0.0, 0.0],
+                        "relativeSize": [1.0, 1.0, 1.0],
+                        "relativeRotation": [0.0, 0.0, 0.0]
+                    }
+                }]
+        }, {
+            "prefabName": "5fe3f128-ef62-46a8-b643-ce517f4e9742",
+            "uuid": "6973574e-ddf8-458b-a194-85acbe27d9bc",
+            "name": "AtmosphereActor",
+            "state": "active",
+            "transform": {
+                "position": [0.0, 0.0, 0.0],
+                "rotation": [0.0, 0.0, 0.0],
+                "size": [1.0, 1.0, 1.0]
+            },
+            "components": [{
+                    "type": "AtmosphereComponent",
+                    "componentId": "AtmosphereComponent1",
+                    "componentName": "AtmosphereComponent",
+                    "properties": {
+                        "relativePosition": [0.0, 0.0, 0.0],
+                        "relativeSize": [1.0, 1.0, 1.0],
+                        "relativeRotation": [0.0, 0.0, 0.0],
+                        "fogStart": 10.0,
+                        "fogEnd": 200.0,
+                        "fogColor": [0.266, 0.158, 0.081, 1.0]
+                    }
+                }]
+        }]
+}

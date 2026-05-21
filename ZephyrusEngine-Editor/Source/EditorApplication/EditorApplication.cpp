@@ -1,0 +1,143 @@
+#include "EditorApplication.h"
+#include "Log.h"
+#include "RendererOpenGl.h"
+#include "TextRenderer.h"
+#include "SplashScreen.h"
+#include "EditorControllerActor.h"
+#include "EditorControllerComponent.h"
+#include "EditorApplication/EventSystem/EventSystem.h"
+#include "HudManager.h"
+#include "ISerializationFactory.h"
+
+EditorApplication::EditorApplication(const std::string& pTitle, const std::string& pEditorConfigFile)
+    : mIsRunning(true), mEditorConfigFile(pEditorConfigFile), mEditorInputManager(nullptr), mProjectName(pTitle)
+{
+    Zephyrus::Debug::Log::Init();
+    Initialize();
+}
+
+EditorApplication::~EditorApplication()
+{
+    delete mRenderer;
+    delete mEditorController;
+    delete mEditorWindow;
+    delete mSceneManager;
+    delete mEditorInputManager;
+}
+
+void EditorApplication::Initialize()
+{
+    mEditorWindow = new Window(1920, 1030, true);
+    mRenderer = new Zephyrus::Render::RendererOpenGl();
+    mSceneManager = new Zephyrus::Scenes::SceneManager(mRenderer);
+    Zephyrus::Assets::AssetsManager::GetInstance().Initialize(mSceneManager);
+    InitializeEditorConfig();
+
+    mImGuiEditorLayer = std::make_unique<ImGuiEditorLayer>();
+
+    if (mEditorWindow->Open(mProjectName) && mRenderer->Initialize(*mEditorWindow) && Zephyrus::Render::TextRenderer::Instance().Init(*mEditorWindow))
+    {
+        glfwMaximizeWindow(mEditorWindow->GetGlfwWindow());
+        mEditorInputManager = new InputManager(mEditorWindow->GetGlfwWindow());
+        mEditorInputManager->SetPriority();
+
+        auto editorController = new Zephyrus::ActorComponent::EditorControllerActor(mSceneManager, *mSceneManager->GetActiveScene());
+        mEditorController = editorController;
+        mEditorController->GetComponentOfType<Zephyrus::ActorComponent::EditorControllerComponent>()->SetInputManager(mEditorInputManager);
+        mEditorController->Start();
+
+        mImGuiEditorLayer->InitializeImGui(mEditorWindow->GetGlfwWindow());
+        mImGuiEditorLayer->InitializePanels(this);
+
+        Loop();
+    }
+}
+
+void EditorApplication::InitializeEditorConfig()
+{
+    auto reader = mSceneManager->GetSerializationFactory()->CreateDeserializer();
+
+    if (reader->LoadDocument(mEditorConfigFile))
+    {
+        if (auto projectName = reader->ReadString("projectName"))
+        {
+            mProjectName = *projectName;
+        }
+        if (auto startupMapId = reader->ReadString("startupMapId"))
+        {
+            mStartMapId = *startupMapId;
+        }
+    }
+    
+}
+
+void EditorApplication::Loop()
+{
+    mSceneManager->LoadSceneFromFileId(mStartMapId, mRenderer, false);
+    mSceneManager->SetSceneLoaded(true);
+
+    mRenderer->GetHud()->Unload();
+
+    mSceneManager->GetActiveScene()->GetRenderer()->GetDebugRenderer()->SetDrawSelected(true);
+    
+    while (mIsRunning) {
+        Timer::ComputeDeltaTime();
+        Input();
+        Update();
+        Render();
+        Timer::DelayTime();
+    }
+
+    Close();
+}
+
+void EditorApplication::Update()
+{
+    mEditorController->GetComponentOfType<Zephyrus::ActorComponent::CameraComponent>()->UpdateMatrices();
+    mImGuiEditorLayer->UpdatePanels(this);
+    auto world = mSceneManager->GetPhysicsWorld();
+    world->Update(0);
+    //EventSystem::Update();
+}
+
+void EditorApplication::Render()
+{
+    mEditorController->GetComponentOfType<Zephyrus::ActorComponent::CameraComponent>()->RenderScene();
+    mSceneManager->GetActiveScene()->EndRender();
+    mImGuiEditorLayer->RenderImgui();
+}
+
+void EditorApplication::Input()
+{
+    if (mIsRunning) {
+        GLFWwindow* win = mEditorWindow->GetGlfwWindow();
+        glfwPollEvents();
+
+        if (glfwWindowShouldClose(win)) mIsRunning = false;
+
+        if (mEditorInputManager->HasPriority())
+        {
+            mEditorInputManager->UpdateKeysAndButtons();
+        }
+        else
+        {
+            mSceneManager->UpdateInput();
+        }
+    }
+}
+
+void EditorApplication::ResetEditorController()
+{
+    mEditorController->Start();
+}
+
+void EditorApplication::Close()
+{
+    mImGuiEditorLayer->CloseImGui();
+    Zephyrus::Debug::Log::Shutdown();
+    mEditorController->Destroy();
+    mSceneManager->Unload();
+    mEditorWindow->Close();
+    EventSystem::ClearAllEvents();
+}
+

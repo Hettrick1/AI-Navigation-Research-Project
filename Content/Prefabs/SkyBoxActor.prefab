@@ -1,0 +1,28 @@
+{
+    "name": "SkyBoxActor",
+    "state": "active",
+    "transform": {
+        "position": [0, 0, 0],
+        "size": [1, 1, 1],
+        "rotation": [0, 0, 0]
+    },
+    "components": [
+        {
+            "type": "SkySphereComponent",
+            "componentId": "SkySphereComponent1",
+            "properties": {
+                "relativePosition" : [0, 0, 0],
+                "relativeRotation" : [20, 0, 0],
+                "isSphere" : false,
+                "materialInstance": {
+                            "baseMaterial": "bb8c892f-e419-492d-836f-7e64002f4a4c",
+                            "textures": [{
+                                    "name": "albedo",
+                                    "type": "Cubemap",
+                                    "paths": ["6cfac8cb-3c9f-4ae1-9532-d7922205fad3", "9468548d-870d-4103-ac4f-d131a07dd3da", "0c3a295f-093e-470d-b48b-dbe2cb3f9a6f", "cb5eda92-a6cc-458a-b3d3-a71dab6699c6", "8cbebe8e-7971-468e-beec-1e906c2740f7", "2e97934b-99a1-4229-a8f3-a5654bfe3e00"]
+                                }]
+                        }
+            }
+        }
+    ]
+}

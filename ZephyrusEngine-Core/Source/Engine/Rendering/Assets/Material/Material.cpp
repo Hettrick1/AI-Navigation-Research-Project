@@ -1,0 +1,562 @@
+#include "pch.h"
+#include "Material.h"
+
+#include "AssetsManager.h"
+#include "IBaseMaterialListener.h"
+#include "Interface/ICubeMapTexture.h"
+#include "Interface/ITexture2D.h"
+
+namespace Zephyrus::Material
+{
+	Material::Material()
+	{
+	}
+	Material::~Material()
+	{
+		mVertShader = nullptr;
+		mFragShader = nullptr;
+		mTescShader = nullptr;
+		mTeseShader = nullptr;
+		mGeomShader = nullptr;
+
+		mShaderProgram = nullptr;
+
+		mTextures.clear();
+
+		mIntProperties.clear();
+		mfloatProperties.clear();
+		mVec2Properties.clear();
+		mVec3Properties.clear();
+		mVec4Properties.clear();
+		mMat4Properties.clear();
+		
+		mListeners.clear();
+	}
+	void Material::SetVertexShader(Render::IShader* s)
+	{
+		if (!s) return;
+		mVertShader = s;
+		RebuildShaderProgram();
+	}
+	void Material::SetFragmentShader(Render::IShader* s)
+	{
+		if (!s) return;
+		mFragShader = s;
+		RebuildShaderProgram();
+	}
+	void Material::SetTessControlShader(Render::IShader* s)
+	{
+		mTescShader = s;
+		RebuildShaderProgram();
+	}
+	void Material::SetTessEvalShader(Render::IShader* s)
+	{
+		mTeseShader = s;
+		RebuildShaderProgram();
+	}
+	void Material::SetGeometryShader(Render::IShader* s)
+	{
+		mGeomShader = s;
+		RebuildShaderProgram();
+	}
+	void Material::RebuildShaderProgram()
+	{
+		std::vector<Render::IShader*> shaders;
+
+		if (!mVertShader || !mFragShader)
+		{
+			ZP_CORE_ERROR("You need a vertex and a fragment shader !");
+			return;
+		}
+		shaders.push_back(mVertShader);
+		if (mTescShader && mTeseShader)
+		{
+			shaders.push_back(mTescShader);
+			shaders.push_back(mTeseShader);
+		}
+		if (mGeomShader)
+		{
+			shaders.push_back(mGeomShader);
+		}
+		shaders.push_back(mFragShader);
+
+		std::string programName;
+		for (auto s : shaders)
+		{
+			programName += s->GetShaderID();
+		}
+
+		mShaderProgram = Assets::AssetsManager::GetInstance().LoadShaderProgram(shaders, programName);
+
+	}
+	void Material::SetTexture(const std::string& uniformName, Assets::ITextureBase* texture)
+	{
+		if (!texture) return;
+		
+		auto it = std::find_if(mTextures.begin(), mTextures.end(), 
+		[&uniformName](const std::pair<std::string, Assets::ITextureBase*>& pair)
+		{
+			return pair.first == uniformName;
+		});
+		
+		if (it != mTextures.end())
+		{
+			it->second = texture;
+		}
+		else
+		{
+			mTextures.emplace_back(uniformName, texture);
+		}
+	}
+	
+	void Material::SetProperty(const std::string& uniformName, float value)
+	{
+		UpdateOrAddProperty(mfloatProperties, uniformName, value);
+	}
+	void Material::SetProperty(const std::string& uniformName, int value)
+	{
+		UpdateOrAddProperty(mIntProperties, uniformName, value);
+	}
+	void Material::SetProperty(const std::string& uniformName, const Vector2D& value)
+	{
+		UpdateOrAddProperty(mVec2Properties, uniformName, value);
+	}
+	void Material::SetProperty(const std::string& uniformName, const Vector3D& value)
+	{
+		UpdateOrAddProperty(mVec3Properties, uniformName, value);
+	}
+	void Material::SetProperty(const std::string& uniformName, const Vector4D& value)
+	{
+		UpdateOrAddProperty(mVec4Properties, uniformName, value);
+	}
+	void Material::SetProperty(const std::string& uniformName, const Matrix4DRow& value)
+	{
+		UpdateOrAddProperty(mMat4Properties, uniformName, value);
+	}
+	void Material::RemoveProperty(const std::string& uniformName)
+	{
+		std::erase_if(mTextures, [&uniformName](const auto& pair)
+		{ return pair.first == uniformName; });
+		std::erase_if(mIntProperties, [&uniformName](const auto& pair)
+		{ return pair.first == uniformName; });
+		std::erase_if(mfloatProperties, [&uniformName](const auto& pair)
+		{ return pair.first == uniformName; });
+		std::erase_if(mVec2Properties, [&uniformName](const auto& pair)
+		{ return pair.first == uniformName; });
+		std::erase_if(mVec3Properties, [&uniformName](const auto& pair)
+		{ return pair.first == uniformName; });
+		std::erase_if(mVec4Properties, [&uniformName](const auto& pair)
+		{ return pair.first == uniformName; });
+		std::erase_if(mMat4Properties, [&uniformName](const auto& pair)
+		{ return pair.first == uniformName; });
+	}
+	void Material::Use(const Matrix4DRow* world, const Matrix4DRow* viewproj)
+	{
+		if (!mShaderProgram)
+			return;
+
+		mShaderProgram->Use();
+		
+		for (auto& [name, value] : mfloatProperties)
+		{
+			mShaderProgram->setFloat(name.c_str(), value);
+		}
+		for (auto& [name, value] : mIntProperties)
+		{
+			mShaderProgram->setInteger(name.c_str(), value);
+		}
+		for (auto& [name, value] : mVec2Properties)
+		{
+			mShaderProgram->setVector2f(name.c_str(), value);
+		}
+		for (auto& [name, value] : mVec3Properties)
+		{
+			mShaderProgram->setVector3f(name.c_str(), value);
+		}
+		for (auto& [name, value] : mVec4Properties)
+		{
+			mShaderProgram->setVector4f(name.c_str(), value);
+		}
+		for (auto& [name, value] : mMat4Properties)
+		{
+			mShaderProgram->setMatrix4Row(name.c_str(), value);
+		}
+
+		int slot = 0;
+		for (auto& [name, tex] : mTextures)
+		{
+			if (tex)
+			{
+				tex->Bind(slot);
+				++slot;
+			}
+		}
+		if (world)
+		{
+			mShaderProgram->setMatrix4Row("uWorldTransform", *world);
+		}
+		if (viewproj)
+		{
+			mShaderProgram->setMatrix4Row("uViewProj", *viewproj);
+		}
+		mShaderProgram->setFloat("uLod", 0);
+	}
+
+	void Material::Serialize(Serialization::ISerializer& writer) const
+	{
+		writer.BeginObject("shaders");
+		if (mVertShader)
+		{
+			writer.WriteString("vertex", mVertShader->GetShaderID());
+		}
+		if (mFragShader)
+		{
+			writer.WriteString("fragment", mFragShader->GetShaderID());
+		}
+		if (mTescShader)
+		{
+			writer.WriteString("control", mTescShader->GetShaderID());
+		}
+		if (mTeseShader)
+		{
+			writer.WriteString("eval", mTeseShader->GetShaderID());
+		}
+		if (mGeomShader)
+		{
+			writer.WriteString("geometry", mGeomShader->GetShaderID());
+		}
+		writer.EndObject();
+
+		if (!mTextures.empty())
+		{
+			writer.BeginArray("textures");
+
+			for (auto& [name, tex] : mTextures)
+			{
+				writer.BeginObject();
+
+				writer.WriteString("name", name);
+
+				if (auto tex2D = dynamic_cast<Assets::ITexture2D*>(tex))
+				{
+					writer.WriteString("type", "Texture2D");
+					writer.WriteString("path", tex2D->GetTextureFileId());
+				}
+				else if (auto cubemap = dynamic_cast<Assets::ICubeMapTexture*>(tex))
+				{
+					writer.WriteString("type", "Cubemap");
+					writer.BeginArray("paths");
+					for (auto& facePath : cubemap->GetFaceFileIds())
+						writer.PushString(facePath);
+					writer.EndArray();
+				}
+				else
+				{
+					writer.WriteString("type", "Unknown");
+				}
+
+				writer.EndObject();
+			}
+
+			writer.EndArray();
+		}
+
+		// --- Float properties ---
+		if (!mfloatProperties.empty())
+		{
+			writer.BeginArray("floatProperties");
+			for (auto& [name, value] : mfloatProperties)
+			{
+				writer.BeginObject();
+				writer.WriteString("name", name);
+				writer.WriteFloat("value", value);
+				writer.EndObject();
+			}
+			writer.EndArray();
+		}
+
+		// --- Int properties ---
+		if (!mIntProperties.empty())
+		{
+			writer.BeginArray("intProperties");
+			for (auto& [name, value] : mIntProperties)
+			{
+				writer.BeginObject();
+				writer.WriteString("name", name);
+				writer.WriteInt("value", value);
+				writer.EndObject();
+			}
+			writer.EndArray();
+		}
+
+		// --- Vec2 properties ---
+		if (!mVec2Properties.empty())
+		{
+			writer.BeginArray("vec2Properties");
+			for (auto& [name, value] : mVec2Properties)
+			{
+				writer.BeginObject();
+				writer.WriteString("name", name);
+				writer.WriteVector2D("value", value);
+				writer.EndObject();
+			}
+			writer.EndArray();
+		}
+
+		// --- Vec3 properties ---
+		if (!mVec3Properties.empty())
+		{
+			writer.BeginArray("vec3Properties");
+			for (auto& [name, value] : mVec3Properties)
+			{
+				writer.BeginObject();
+				writer.WriteString("name", name);
+				writer.WriteVector3D("value", value);
+				writer.EndObject();
+			}
+			writer.EndArray();
+		}
+
+		// --- Vec4 properties ---
+		if (!mVec4Properties.empty())
+		{
+			writer.BeginArray("vec4Properties");
+			for (auto& [name, value] : mVec4Properties)
+			{
+				writer.BeginObject();
+				writer.WriteString("name", name);
+				writer.WriteVector4D("value", value);
+				writer.EndObject();
+			}
+			writer.EndArray();
+		}
+
+		// --- Mat4 properties ---
+		if (!mMat4Properties.empty())
+		{
+			writer.BeginArray("mat4Properties");
+			for (auto& [name, value] : mMat4Properties)
+			{
+				writer.BeginObject();
+				writer.WriteString("name", name);
+				writer.WriteMatrice4DRow("value", value);
+				writer.EndObject();
+			}
+			writer.EndArray();
+		}
+	}
+	void Material::Deserialize(Serialization::IDeserializer& reader)
+	{
+		if (reader.BeginObject("shaders"))
+		{
+			if (auto vertex = reader.ReadString("vertex"))
+			{
+				mVertShader = Assets::AssetsManager::GetInstance().LoadShader(*vertex, Render::ShaderType::VERTEX);
+			}
+			if (auto fragment = reader.ReadString("fragment"))
+			{
+				mFragShader = Assets::AssetsManager::GetInstance().LoadShader(*fragment, Render::ShaderType::FRAGMENT);
+			}
+			if (auto control = reader.ReadString("control"))
+			{
+				mTescShader = Assets::AssetsManager::GetInstance().LoadShader(*control, Render::ShaderType::TESSELLATION_CONTROL);
+			}
+			if (auto eval = reader.ReadString("eval"))
+			{
+				mTeseShader = Assets::AssetsManager::GetInstance().LoadShader(*eval, Render::ShaderType::TESSELLATION_EVALUATION);
+			}
+			if (auto geometry = reader.ReadString("geometry"))
+			{
+				mGeomShader = Assets::AssetsManager::GetInstance().LoadShader(*geometry, Render::ShaderType::GEOMETRY);
+			}
+			reader.EndObject();
+		}
+
+		// --- Textures ---
+		if (reader.BeginObjectArray("textures"))
+		{
+			while (reader.NextObjectElement())
+			{
+				auto nameOpt = reader.ReadString("name");
+				auto typeOpt = reader.ReadString("type");
+				if (!nameOpt.has_value() || !typeOpt.has_value())
+					continue;
+
+				const std::string& name = nameOpt.value();
+				const std::string& type = typeOpt.value();
+
+				if (type == "Texture2D")
+				{
+					auto pathOpt = reader.ReadString("path");
+					if (pathOpt.has_value())
+					{
+						if (auto tex = Assets::AssetsManager::GetInstance().LoadTexture(*pathOpt))
+							SetTexture(name, tex);
+					}
+				}
+				else if (type == "Cubemap")
+				{
+					auto facesOpt = reader.ReadArrayString("paths");
+					if (facesOpt.has_value() && facesOpt->size() == 6)
+					{
+						std::string cubeKey;
+						for (auto& path : facesOpt.value())
+							cubeKey += path;
+
+						auto tex = Assets::AssetsManager::GetInstance().LoadCubemap(facesOpt.value(), cubeKey);
+						if (tex)
+							SetTexture(name, tex);
+					}
+				}
+				else
+				{
+					ZP_CORE_WARN("Unknown texture type found while deserializing material instance:" + type);
+				}
+			}
+
+			reader.EndObjectArray();
+		}
+
+		// --- Float properties ---
+		if (reader.BeginObjectArray("floatProperties"))
+		{
+			while (reader.NextObjectElement())
+			{
+				auto nameOpt = reader.ReadString("name");
+				auto valueOpt = reader.ReadFloat("value");
+				if (nameOpt && valueOpt)
+				{
+					SetProperty(*nameOpt, *valueOpt);
+				}
+			}
+			reader.EndObjectArray();
+		}
+
+		// --- Int properties ---
+		if (reader.BeginObjectArray("intProperties"))
+		{
+			while (reader.NextObjectElement())
+			{
+				auto nameOpt = reader.ReadString("name");
+				auto valueOpt = reader.ReadInt("value");
+				if (nameOpt && valueOpt)
+				{
+					SetProperty(*nameOpt, *valueOpt);
+				}
+			}
+			reader.EndObjectArray();
+		}
+
+		// --- Vec2 properties ---
+		if (reader.BeginObjectArray("vec2Properties"))
+		{
+			while (reader.NextObjectElement())
+			{
+				auto nameOpt = reader.ReadString("name");
+				auto valueOpt = reader.ReadVector2D("value");
+				if (nameOpt && valueOpt)
+				{
+					SetProperty(*nameOpt, *valueOpt);
+				}
+			}
+			reader.EndObjectArray();
+		}
+
+		// --- Vec3 properties ---
+		if (reader.BeginObjectArray("vec3Properties"))
+		{
+			while (reader.NextObjectElement())
+			{
+				auto nameOpt = reader.ReadString("name");
+				auto valueOpt = reader.ReadVector3D("value");
+				if (nameOpt && valueOpt)
+				{
+					SetProperty(*nameOpt, *valueOpt);
+				}
+			}
+			reader.EndObjectArray();
+		}
+
+		// --- Vec4 properties ---
+		if (reader.BeginObjectArray("vec4Properties"))
+		{
+			while (reader.NextObjectElement())
+			{
+				auto nameOpt = reader.ReadString("name");
+				auto valueOpt = reader.ReadVector4D("value");
+				if (nameOpt && valueOpt)
+				{
+					SetProperty(*nameOpt, *valueOpt);
+				}
+			}
+			reader.EndObjectArray();
+		}
+
+		// --- Vec4 properties ---
+		if (reader.BeginObjectArray("mat4Properties"))
+		{
+			while (reader.NextObjectElement())
+			{
+				auto nameOpt = reader.ReadString("name");
+				auto valueOpt = reader.ReadMatrix4DRow("value");
+				if (nameOpt && valueOpt)
+				{
+					SetProperty(*nameOpt, *valueOpt);
+				}
+			}
+			reader.EndObjectArray();
+		}
+		RebuildShaderProgram();
+	}
+
+	std::vector<PropertyDescriptor> Material::GetProperties()
+	{
+		std::vector<PropertyDescriptor> mProperties;
+		mProperties.emplace_back("Vertex Shader : ", &mVertShader, PropertyType::ShaderVert);
+		mProperties.emplace_back("Fragment Shader : ", &mFragShader, PropertyType::ShaderFrag);
+		mProperties.emplace_back("Tesselation Control Shader : ", &mTescShader, PropertyType::ShaderTesc);
+		mProperties.emplace_back("Tesselation Evaluation Shader : ", &mTeseShader, PropertyType::ShaderTese);
+		mProperties.emplace_back("Geometry Shader : ", &mGeomShader, PropertyType::ShaderGeom);
+
+		mProperties.emplace_back("Textures : ", &mTextures, PropertyType::ArrayMatTextureBase);
+		mProperties.emplace_back("Ints : ", &mIntProperties, PropertyType::ArrayMatInt);
+		mProperties.emplace_back("Floats : ", &mfloatProperties, PropertyType::ArrayMatFloat);
+		mProperties.emplace_back("Vec2 : ", &mVec2Properties, PropertyType::ArrayMatVector2D);
+		mProperties.emplace_back("Vec3 : ", &mVec3Properties, PropertyType::ArrayMatVector3D);
+		mProperties.emplace_back("Vec4 : ", &mVec4Properties, PropertyType::ArrayMatVector4D);
+		
+		return mProperties;
+	}
+
+	std::string Material::GetFilePath() const
+	{
+		return Assets::AssetsManager::GetInstance().GetFileDatabase().GetPathFromID(mMaterialFileId);
+	}
+
+	void Material::SetMaterialFileId(const std::string& fileId)
+	{
+		mMaterialFileId = fileId;
+	}
+
+	void Material::Save() const
+	{
+		Serialization::Json::JsonWriter writer;
+		Serialize(writer);
+		writer.SaveDocument(Assets::AssetsManager::GetInstance().GetFileDatabase().GetPathFromID(mMaterialFileId));
+
+		for (auto listener : mListeners)
+		{
+			listener->UpdateMaterial();
+		}
+	}
+
+	void Material::AddMaterialListener(IBaseMaterialListener* listener)
+	{
+		mListeners.push_back(listener);
+	}
+
+	void Material::RemoveMaterialListener(IBaseMaterialListener* listener)
+	{
+		std::erase(mListeners, listener);
+	}
+}

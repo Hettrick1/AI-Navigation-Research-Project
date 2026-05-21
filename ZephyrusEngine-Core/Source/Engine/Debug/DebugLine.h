@@ -1,0 +1,20 @@
+#pragma once
+
+#include "Vector3D.h"
+#include "Physics/HitResult.h"
+
+using Zephyrus::Physics::HitResult;
+
+namespace Zephyrus::Debug
+{
+	struct DebugLine
+	{
+		DebugLine(Vector3D pStart, Vector3D pEnd, HitResult pHit)
+			: Start(pStart), End(pEnd), Hit(pHit)
+		{
+		}
+		Vector3D Start;
+		Vector3D End;
+		HitResult Hit;
+	};
+}

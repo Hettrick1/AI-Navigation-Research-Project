@@ -1,0 +1,57 @@
+#pragma once
+
+#include "IActionListener.h"
+#include "Component.h"
+
+using Zephyrus::Inputs::IActionListener;
+using Zephyrus::Inputs::InputAction;
+using Zephyrus::Inputs::ActionType;
+
+namespace Zephyrus::Inputs
+{
+	class BooleanActions;
+	class InputManager;
+	class Axis2DAction;
+}
+
+using Zephyrus::Inputs::InputManager;
+using Zephyrus::Inputs::BooleanActions;
+using Zephyrus::Inputs::Axis2DAction;
+
+namespace Zephyrus::ActorComponent
+{
+	class DoomPC : public IActionListener, public Component
+	{
+	public:
+		DoomPC(Actor* pOwner, int pUpdateOrder = 100);
+		DoomPC() = delete;
+		DoomPC(const DoomPC&) = delete;
+		DoomPC& operator=(const DoomPC&) = delete;
+		~DoomPC() override;
+
+		void Deserialize(Serialization::IDeserializer& pReader) override;
+		void Serialize(Serialization::ISerializer& pWriter) override;
+
+		static Component* Create(Actor* pOwner) { return new DoomPC(pOwner); }
+	public:
+
+		void OnStart() override;
+		
+		void Move(Vector2D axis);
+		void Rotate(Vector2D axis);
+		void Shoot();
+		
+		void OnActionStarted(InputAction* action) override;
+		void OnActionTriggered(InputAction* action) override;
+		void OnActionEnded(InputAction* action) override;
+	public:
+		void Update() override;
+	private:
+		bool goRight, goLeft, goForward, goBackward;
+		float mYaw{ 0.0f };
+		float mPitch{ 0.0f };
+		float moveSpeed{ 20.0f };
+		bool mIsMoving{ false };
+	};
+}
+

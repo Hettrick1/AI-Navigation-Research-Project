@@ -1,0 +1,75 @@
+{
+    "name": "DoomPlayerActor",
+    "state": "active",
+    "transform": {
+        "position": [0, 0, 0],
+        "size": [1, 1, 1],
+        "rotation": [0, 0, -90]
+    },
+    "components": [
+        {
+            "type": "RigidbodyComponent",
+            "componentId": "RigidbodyComponent1",
+            "properties": {
+                "relativePosition" : [0, 0, 0],
+                "relativeRotation" : [0, 0, 0],
+                "mass" : 1.0,
+                "friction" : 10.0,
+                "restitution" : 0.0,
+                "lockAngles" : [0, 0, 0]
+            }
+        },
+        {
+            "type": "DoomPC",
+            "componentId": "DoomPC1",
+            "properties": {
+                "relativePosition" : [0, 0, 0],
+                "relativeRotation" : [0, 0, 0]
+            }
+        },
+        {
+            "type": "CameraComponent",
+            "componentId": "CameraComponent1",
+            "properties": {
+                "relativePosition" : [0, 0.0, 0.8],
+                "relativeRotation" : [0, 0, 0]
+            }
+        },
+        {
+            "type": "FlipbookComponent",
+            "componentId": "FlipbookComponent1", 
+            "properties": {
+                "relativePosition" : [0, 2, -0.5],
+                "relativeRotation" : [90, 0, 0],
+                "cullOff" : true,
+                "materialInstance": {
+                            "baseMaterial": "7b717918-73eb-4379-ad3f-2f78afe545ce",
+                            "textures": [{
+                                    "name": "albedo",
+                                    "type": "Texture2D",
+                                    "path": "9108356a-451c-4af9-81e4-95c4e7d8cef4"
+                                }]
+                        }
+            }
+        },
+        {
+            "type": "CapsuleColliderComponent",
+            "componentId": "CapsuleColliderComponent1",
+            "properties": {
+                "relativePosition" : [0, 0, 0.4],
+                "relativeRotation" : [0, 0, 0],
+                "radius" : 0.6,
+                "height" : 1.0,
+                "isQuery" : false
+            }
+        },
+        {
+            "type": "DoomPlayerComponent",
+            "componentId": "DoomPlayerComponent1",
+            "properties": {
+                "relativePosition" : [0, 0, 0.4],
+                "relativeRotation" : [0, 0, 0]
+            }
+        }
+    ]
+}

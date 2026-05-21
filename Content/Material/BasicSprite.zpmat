@@ -1,0 +1,15 @@
+{
+    "shaders": {
+        "vertex": "be798918-1776-4864-8424-27b0d042571c",
+        "fragment": "5e912b8d-11ab-4e7d-ba2e-6bcd0f433297"
+    },
+    "textures": [{
+            "name": "albedo",
+            "type": "Texture2D",
+            "path": "9108356a-451c-4af9-81e4-95c4e7d8cef4"
+        }],
+    "vec4Properties": [{
+            "name": "uTint",
+            "value": [1.0, 1.0, 1.0, 1.0]
+        }]
+}

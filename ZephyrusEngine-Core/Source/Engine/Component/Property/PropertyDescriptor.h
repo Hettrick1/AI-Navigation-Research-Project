@@ -1,0 +1,52 @@
+#pragma once
+
+#include "PropertyMetadata.h"
+#include <string>
+
+enum class PropertyType 
+{ 
+    Float, 
+    Int, 
+    Bool, 
+    String,
+    Color,
+    Vec4,
+    Vec3, 
+    Vec2, 
+    Quaternion, 
+    Texture2D, 
+    Font, 
+    Mesh,
+    MaterialInstance,
+    VectorTexture2D,
+    Prefab,
+    CubeMap,
+    Component,
+    ShaderVert,
+    ShaderFrag,
+    ShaderTesc,
+    ShaderTese,
+    ShaderGeom,
+    ArrayMatFloat,
+    ArrayMatInt,
+    ArrayMatVector2D,
+    ArrayMatVector3D,
+    ArrayMatVector4D,
+    ArrayMatTextureBase,
+    TextureBase,
+};
+
+struct PropertyDescriptor {
+    std::string name;
+    void* field;
+    PropertyType type;
+
+    bool isPointer = false;
+    Zephyrus::PropertyMetadata metadata = {};
+    
+    PropertyDescriptor(const std::string& n, void* f, PropertyType t, const Zephyrus::PropertyMetadata& m)
+        : name(n), field(f), type(t), metadata(m) {}
+
+    PropertyDescriptor(const std::string& n, void* f, PropertyType t)
+        : name(n), field(f), type(t), metadata() {}
+};

@@ -1,0 +1,23 @@
+{
+    "shaders": {
+        "vertex": "d1e9677c-d919-45f4-9f0a-438c0c45b3d6",
+        "fragment": "a3cc2dd7-3141-42a8-b49a-67090303921b",
+        "control": "01b27538-d656-4c84-ac3f-4ca34ae1f55e",
+        "eval": "2c1807c7-941c-45a4-867c-61eeedebd7b1"
+    },
+    "textures": [{
+            "name": "albedo",
+            "type": "Cubemap",
+            "paths": ["a63ef139-0043-4387-b828-2e81e91bb53c", "ad2da672-58ce-4196-89f8-03e7d874597e", "e3dd3340-9286-431d-810b-fc8eabeedb52", "4fc73004-35b6-457a-850e-941e1b48dba2", "68310d1d-daeb-4c7b-b12c-a18322b04ab3", "74ed6cc6-06aa-495c-93d5-63c71622f347"]
+        }],
+    "vec4Properties": [{
+            "name": "highColor",
+            "value": [1.0, 0.0, 0.0, 1.0]
+        }, {
+            "name": "middleColor",
+            "value": [0.8, 0.5, 0.0, 1.0]
+        }, {
+            "name": "lowColor",
+            "value": [0.898, 1.0, 0.0, 1.0]
+        }]
+}

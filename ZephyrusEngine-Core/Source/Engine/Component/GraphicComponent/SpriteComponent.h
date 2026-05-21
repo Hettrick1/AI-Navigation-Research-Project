@@ -1,0 +1,54 @@
+#pragma once
+#include "IRenderer.h"
+#include "Interface/ITexture2D.h"
+#include "RenderComponent.h"
+
+/**
+ * @brief Component that handles rendering a 2D sprite for an Actor.
+ * Manages the texture, draw order, flipping, culling, and size override for the sprite.
+ */
+namespace Zephyrus::ActorComponent
+{
+	class SpriteComponent : public RenderComponent
+	{
+	protected:
+		Assets::ITexture2D* mTexture{nullptr};
+		int mDrawOrder = 0;
+		int mTexWidth = 0;
+		int mTexHeight = 0;
+		int mTexWidthOverride = 0;
+		int mTexHeightOverride = 0;
+		bool mCullOff = false;
+		float aspectRatio = 0.0, aspectRatioInv = 0.0;
+	public:
+		SpriteComponent(Actor* pOwner, const std::string& pName);
+		virtual ~SpriteComponent() override;
+
+		virtual void Update() override;
+		virtual void OnEnd() override;
+
+		virtual std::vector<PropertyDescriptor> GetProperties() override;
+
+		void Deserialize(Serialization::IDeserializer& pReader) override;
+		void Serialize(Serialization::ISerializer& pWriter) override;
+
+		static Component* Create(Actor* pOwner) { return new SpriteComponent(pOwner, "SpriteComponent"); }
+
+		// Sets the texture used by the sprite
+		virtual void SetTexture(Assets::ITexture2D* pTexture);
+
+		virtual void Draw(const Zephyrus::Render::IRenderer& pRenderer) override;
+
+		// Enables or disables culling for the sprite
+		void SetCullOff(bool cull);
+		// Returns the world transform matrix for the sprite
+		Matrix4DRow GetWorldTransform() override;
+
+		void SetDrawOrder(const int pOrder);
+
+		inline Assets::ITexture2D* GetTexture() { return mTexture; }
+		inline int GetDrawOrder() const { return mDrawOrder; }
+		inline int GetTexWidth() const { return mTexWidth; }
+		inline int GetTexHeight() const { return mTexHeight; }
+	};
+}

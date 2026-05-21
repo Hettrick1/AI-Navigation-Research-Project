@@ -1,0 +1,446 @@
+{
+    "player": "d3a8c81d-be8a-40b1-a0f8-890769c11818",
+    "actors": [{
+            "prefabName": "af1ccdf6-1462-4ae0-9b0e-74655b8f5133",
+            "uuid": "8c9fa016-f234-481a-b8c7-73d97ae06875",
+            "name": "PlayerStart",
+            "state": "active",
+            "transform": {
+                "position": [0.0, 0.0, 7.73],
+                "rotation": [0.0, 0.0, 0.0],
+                "size": [1.0, 1.0, 1.0]
+            },
+            "components": [{
+                    "type": "MeshComponent",
+                    "componentId": "MeshComponent1",
+                    "componentName": "MeshComponent",
+                    "properties": {
+                        "relativePosition": [0.0, 0.0, 0.0],
+                        "relativeSize": [1.0, 1.0, 1.0],
+                        "relativeRotation": [0.0, 0.0, 0.0],
+                        "mesh": "64cd0a92-d909-4bb3-aca8-0cf06467e584",
+                        "materialInstance": {
+                            "baseMaterial": "443ed7be-dc9d-4992-a3bf-8651b765a054",
+                            "textures": [{
+                                    "name": "albedo",
+                                    "type": "Texture2D",
+                                    "path": "9108356a-451c-4af9-81e4-95c4e7d8cef4"
+                                }],
+                            "vec2Properties": [{
+                                    "name": "uTiling",
+                                    "value": [1.0, 1.0]
+                                }]
+                        }
+                    }
+                }, {
+                    "type": "PlayerStartComponent",
+                    "componentId": "PlayerStartComponent1",
+                    "componentName": "PlayerStartComponent",
+                    "properties": {
+                        "relativePosition": [0.0, 0.0, 0.0],
+                        "relativeSize": [1.0, 1.0, 1.0],
+                        "relativeRotation": [0.0, 0.0, 0.0],
+                        "playerPrefab": "d3a8c81d-be8a-40b1-a0f8-890769c11818"
+                    }
+                }]
+        }, {
+            "prefabName": "dc9c03f1-d723-4645-bfce-4125e1fa0dad",
+            "uuid": "8ed57745-f613-4778-8406-f6054df518f3",
+            "name": "SkyBoxActor",
+            "state": "active",
+            "transform": {
+                "position": [0.0, 0.0, 0.0],
+                "rotation": [0.0, 0.0, 0.0],
+                "size": [1.0, 1.0, 1.0]
+            },
+            "components": [{
+                    "type": "SkySphereComponent",
+                    "componentId": "SkySphereComponent1",
+                    "componentName": "SkySphereComponent",
+                    "properties": {
+                        "relativePosition": [0.0, 0.0, 0.0],
+                        "relativeSize": [1.0, 1.0, 1.0],
+                        "relativeRotation": [20.0, 0.0, 0.0],
+                        "isSphere": false,
+                        "materialInstance": {
+                            "baseMaterial": "bb8c892f-e419-492d-836f-7e64002f4a4c",
+                            "textures": [{
+                                    "name": "albedo",
+                                    "type": "Cubemap",
+                                    "paths": ["4ef87470-0a00-4650-a802-0538641c828f", "28234a33-9d8a-41d7-9aeb-6a4973ab1ba7", "21053e8f-5f19-4ff1-822b-8215818d3396", "e0f93b50-fede-46a9-aa16-4605ec790692", "423669f1-6e82-483a-bd60-a73fd988dffe", "a5bb39d9-1145-49ca-ab7e-8e6d96e26129"]
+                                }]
+                        }
+                    }
+                }]
+        }, {
+            "prefabName": "c8b9bae3-14eb-441e-bc51-341ead1f9324",
+            "uuid": "463e4362-fef6-46e8-b601-347a7dfe8552",
+            "name": "Earth",
+            "state": "active",
+            "transform": {
+                "position": [0.0, 32.693, 2.569],
+                "rotation": [0.0, 0.0, 0.0],
+                "size": [6.0, 6.0, 6.0]
+            },
+            "components": [{
+                    "type": "MeshComponent",
+                    "componentId": "MeshComponent1",
+                    "componentName": "MeshComponent",
+                    "parentID": "MeshComponent2",
+                    "properties": {
+                        "relativePosition": [0.0, 0.0, 0.0],
+                        "relativeSize": [1.0, 1.0, 1.0],
+                        "relativeRotation": [0.0, 0.0, 0.0],
+                        "mesh": "d66e8308-7299-4ef6-80d2-be12f7d81604",
+                        "materialInstance": {
+                            "baseMaterial": "c9a76dfc-09ea-488f-b2ac-736a275ed775",
+                            "textures": [{
+                                    "name": "albedo",
+                                    "type": "Cubemap",
+                                    "paths": ["a63ef139-0043-4387-b828-2e81e91bb53c", "ad2da672-58ce-4196-89f8-03e7d874597e", "e3dd3340-9286-431d-810b-fc8eabeedb52", "4fc73004-35b6-457a-850e-941e1b48dba2", "68310d1d-daeb-4c7b-b12c-a18322b04ab3", "74ed6cc6-06aa-495c-93d5-63c71622f347"]
+                                }]
+                        }
+                    }
+                }, {
+                    "type": "CubeColliderComponent",
+                    "componentId": "CubeColliderComponent1",
+                    "componentName": "CubeColliderComponent",
+                    "properties": {
+                        "relativePosition": [0.0, 0.0, 0.0],
+                        "relativeSize": [1.0, 1.0, 1.0],
+                        "relativeRotation": [0.0, 0.0, 0.0],
+                        "isQuery": false,
+                        "ignoreSelf": true,
+                        "halfExtents": [1.0, 1.0, 1.0]
+                    }
+                }, {
+                    "type": "MeshComponent",
+                    "componentId": "MeshComponent2",
+                    "componentName": "MeshComponent",
+                    "properties": {
+                        "relativePosition": [0.0, 0.0, 0.0],
+                        "relativeSize": [1.0, 1.0, 1.0],
+                        "relativeRotation": [0.0, 0.0, 0.0],
+                        "mesh": "d66e8308-7299-4ef6-80d2-be12f7d81604",
+                        "materialInstance": {
+                            "baseMaterial": "e2d39562-80b0-41ea-92f7-9cd38f1cf03d",
+                            "textures": [{
+                                    "name": "albedo",
+                                    "type": "Cubemap",
+                                    "paths": ["a63ef139-0043-4387-b828-2e81e91bb53c", "ad2da672-58ce-4196-89f8-03e7d874597e", "e3dd3340-9286-431d-810b-fc8eabeedb52", "4fc73004-35b6-457a-850e-941e1b48dba2", "68310d1d-daeb-4c7b-b12c-a18322b04ab3", "74ed6cc6-06aa-495c-93d5-63c71622f347"]
+                                }],
+                            "vec4Properties": [{
+                                    "name": "bottomColor",
+                                    "value": [0.028, 0.28, 0.028, 1.0]
+                                }, {
+                                    "name": "topColor",
+                                    "value": [0.23, 0.68, 0.23, 1.0]
+                                }]
+                        }
+                    }
+                }, {
+                    "type": "RotatingComponent",
+                    "componentId": "RotatingComponent1",
+                    "componentName": "RotatingComponent",
+                    "properties": {
+                        "relativePosition": [0.0, 0.0, 0.0],
+                        "relativeSize": [1.0, 1.0, 1.0],
+                        "relativeRotation": [0.0, 0.0, 0.0],
+                        "rotationRate": [5.0, 5.0, 5.0]
+                    }
+                }]
+        }, {
+            "prefabName": "c8b9bae3-14eb-441e-bc51-341ead1f9324",
+            "uuid": "9f965659-ca4b-4062-b94a-f703488867fc",
+            "name": "FirePlanet",
+            "state": "active",
+            "transform": {
+                "position": [-40.826, 20.18, 21.597],
+                "rotation": [0.0, 0.0, 0.0],
+                "size": [8.0, 8.0, 8.0]
+            },
+            "components": [{
+                    "type": "MeshComponent",
+                    "componentId": "MeshComponent1",
+                    "componentName": "Mesh",
+                    "properties": {
+                        "relativePosition": [0.0, 0.0, 0.0],
+                        "relativeSize": [1.0, 1.0, 1.0],
+                        "relativeRotation": [0.0, 0.0, 0.0],
+                        "mesh": "d66e8308-7299-4ef6-80d2-be12f7d81604",
+                        "materialInstance": {
+                            "baseMaterial": "396d2462-6e71-4fe5-8f79-5ace8b73bf01",
+                            "textures": [{
+                                    "name": "albedo",
+                                    "type": "Cubemap",
+                                    "paths": ["a63ef139-0043-4387-b828-2e81e91bb53c", "ad2da672-58ce-4196-89f8-03e7d874597e", "e3dd3340-9286-431d-810b-fc8eabeedb52", "4fc73004-35b6-457a-850e-941e1b48dba2", "68310d1d-daeb-4c7b-b12c-a18322b04ab3", "74ed6cc6-06aa-495c-93d5-63c71622f347"]
+                                }],
+                            "vec4Properties": [{
+                                    "name": "highColor",
+                                    "value": [1.0, 0.0, 0.0, 1.0]
+                                }, {
+                                    "name": "lowColor",
+                                    "value": [0.898, 1.0, 0.0, 1.0]
+                                }, {
+                                    "name": "middleColor",
+                                    "value": [0.8, 0.5, 0.0, 1.0]
+                                }]
+                        }
+                    }
+                }, {
+                    "type": "CubeColliderComponent",
+                    "componentId": "CubeColliderComponent1",
+                    "componentName": "CubeColliderComponent",
+                    "properties": {
+                        "relativePosition": [0.0, 0.0, 0.0],
+                        "relativeSize": [1.0, 1.0, 1.0],
+                        "relativeRotation": [0.0, 0.0, 0.0],
+                        "isQuery": false,
+                        "ignoreSelf": true,
+                        "halfExtents": [1.0, 1.0, 1.0]
+                    }
+                }, {
+                    "type": "RotatingComponent",
+                    "componentId": "RotatingComponent1",
+                    "componentName": "RotatingComponent",
+                    "properties": {
+                        "relativePosition": [0.0, 0.0, 0.0],
+                        "relativeSize": [1.0, 1.0, 1.0],
+                        "relativeRotation": [0.0, 0.0, 0.0],
+                        "rotationRate": [0.0, 5.0, 0.0]
+                    }
+                }]
+        }, {
+            "prefabName": "c8b9bae3-14eb-441e-bc51-341ead1f9324",
+            "uuid": "9935f687-bb36-4a7c-b44d-ba46ed8a4ef2",
+            "name": "MonkeyPlanet",
+            "state": "active",
+            "transform": {
+                "position": [19.895, 0.0, -6.605],
+                "rotation": [29.999, 0.0, 89.999],
+                "size": [4.0, 4.0, 4.0]
+            },
+            "components": [{
+                    "type": "MeshComponent",
+                    "componentId": "MeshComponent1",
+                    "componentName": "Mesh",
+                    "properties": {
+                        "relativePosition": [0.0, 0.0, 0.0],
+                        "relativeSize": [1.0, 1.0, 1.0],
+                        "relativeRotation": [0.0, 0.0, 0.0],
+                        "mesh": "8a333439-f70a-4b81-8411-4b3b1c471ccd",
+                        "materialInstance": {
+                            "baseMaterial": "396d2462-6e71-4fe5-8f79-5ace8b73bf01",
+                            "textures": [{
+                                    "name": "albedo",
+                                    "type": "Cubemap",
+                                    "paths": ["a63ef139-0043-4387-b828-2e81e91bb53c", "ad2da672-58ce-4196-89f8-03e7d874597e", "e3dd3340-9286-431d-810b-fc8eabeedb52", "4fc73004-35b6-457a-850e-941e1b48dba2", "68310d1d-daeb-4c7b-b12c-a18322b04ab3", "74ed6cc6-06aa-495c-93d5-63c71622f347"]
+                                }],
+                            "vec4Properties": [{
+                                    "name": "highColor",
+                                    "value": [0.698, 1.0, 0.554, 1.0]
+                                }, {
+                                    "name": "lowColor",
+                                    "value": [0.008, 0.0, 0.296, 1.0]
+                                }, {
+                                    "name": "middleColor",
+                                    "value": [0.064, 0.572, 0.017, 1.0]
+                                }]
+                        }
+                    }
+                }, {
+                    "type": "CubeColliderComponent",
+                    "componentId": "CubeColliderComponent1",
+                    "componentName": "CubeColliderComponent",
+                    "properties": {
+                        "relativePosition": [0.0, 0.0, 0.0],
+                        "relativeSize": [1.0, 1.0, 1.0],
+                        "relativeRotation": [0.0, 0.0, 0.0],
+                        "isQuery": false,
+                        "ignoreSelf": true,
+                        "halfExtents": [1.0, 1.0, 1.0]
+                    }
+                }, {
+                    "type": "RotatingComponent",
+                    "componentId": "RotatingComponent1",
+                    "componentName": "RotatingComponent",
+                    "properties": {
+                        "relativePosition": [0.0, 0.0, 0.0],
+                        "relativeSize": [1.0, 1.0, 1.0],
+                        "relativeRotation": [0.0, 0.0, 0.0],
+                        "rotationRate": [0.0, 0.0, 10.0]
+                    }
+                }]
+        }, {
+            "prefabName": "c8b9bae3-14eb-441e-bc51-341ead1f9324",
+            "uuid": "fce7a027-d3c7-4f70-a3de-8838e227fc9e",
+            "name": "WaterPlanet",
+            "state": "active",
+            "transform": {
+                "position": [-17.818, -34.166, 7.717],
+                "rotation": [0.0, 0.0, 0.0],
+                "size": [4.0, 4.0, 4.0]
+            },
+            "components": [{
+                    "type": "MeshComponent",
+                    "componentId": "MeshComponent1",
+                    "componentName": "Mesh",
+                    "properties": {
+                        "relativePosition": [0.0, 0.0, 0.0],
+                        "relativeSize": [1.0, 1.0, 1.0],
+                        "relativeRotation": [0.0, 0.0, 0.0],
+                        "mesh": "d66e8308-7299-4ef6-80d2-be12f7d81604",
+                        "materialInstance": {
+                            "baseMaterial": "396d2462-6e71-4fe5-8f79-5ace8b73bf01",
+                            "textures": [{
+                                    "name": "albedo",
+                                    "type": "Cubemap",
+                                    "paths": ["38084c0f-e4cb-4292-9ac5-c7b7419476a1", "8356918b-34e1-4b89-9174-4abf94a5b754", "1bf26d6f-5b38-4f4c-833f-280a018defc1", "6239efa0-35b6-4216-b106-e6000d5a2626", "ce636def-d045-4611-9587-98b46649e987", "15d766d1-ab4f-41d6-9a9d-aca12453d398"]
+                                }],
+                            "vec4Properties": [{
+                                    "name": "highColor",
+                                    "value": [0.0, 0.75, 1.0, 1.0]
+                                }, {
+                                    "name": "lowColor",
+                                    "value": [0.078, 0.013, 0.349, 1.0]
+                                }, {
+                                    "name": "middleColor",
+                                    "value": [0.0, 0.307, 0.8, 1.0]
+                                }]
+                        }
+                    }
+                }, {
+                    "type": "CubeColliderComponent",
+                    "componentId": "CubeColliderComponent1",
+                    "componentName": "CubeColliderComponent",
+                    "properties": {
+                        "relativePosition": [0.0, 0.0, 0.0],
+                        "relativeSize": [1.0, 1.0, 1.0],
+                        "relativeRotation": [0.0, 0.0, 0.0],
+                        "isQuery": false,
+                        "ignoreSelf": true,
+                        "halfExtents": [1.0, 1.0, 1.0]
+                    }
+                }, {
+                    "type": "RotatingComponent",
+                    "componentId": "RotatingComponent1",
+                    "componentName": "RotatingComponent",
+                    "properties": {
+                        "relativePosition": [0.0, 0.0, 0.0],
+                        "relativeSize": [1.0, 1.0, 1.0],
+                        "relativeRotation": [0.0, 0.0, 0.0],
+                        "rotationRate": [-100.0, -100.0, -100.0]
+                    }
+                }]
+        }, {
+            "prefabName": "c8b9bae3-14eb-441e-bc51-341ead1f9324",
+            "uuid": "40ab853f-0d28-4608-9553-a3fd4f3f8541",
+            "name": "Earth2",
+            "state": "active",
+            "transform": {
+                "position": [17.902, -28.395, -0.0],
+                "rotation": [0.0, 0.0, 0.0],
+                "size": [5.0, 5.0, 5.0]
+            },
+            "components": [{
+                    "type": "MeshComponent",
+                    "componentId": "MeshComponent1",
+                    "componentName": "MeshComponent",
+                    "properties": {
+                        "relativePosition": [0.0, 0.0, 0.0],
+                        "relativeSize": [1.0, 1.0, 1.0],
+                        "relativeRotation": [0.0, 0.0, 0.0],
+                        "mesh": "d66e8308-7299-4ef6-80d2-be12f7d81604",
+                        "materialInstance": {
+                            "baseMaterial": "396d2462-6e71-4fe5-8f79-5ace8b73bf01",
+                            "textures": [{
+                                    "name": "albedo",
+                                    "type": "Cubemap",
+                                    "paths": ["0f2c2516-c067-455c-a808-0326a5d55b98", "8438a327-f6d2-44e9-9bb1-110fe6e81e5e", "adda84cd-1304-4699-92df-a1823440b181", "db2496f9-68e2-418c-94cf-3e9c3bbad41e", "542b57e4-e024-4a9e-a976-c7610a28d008", "54780b04-9754-479a-8fd8-74b98f3bc638"]
+                                }],
+                            "vec4Properties": [{
+                                    "name": "highColor",
+                                    "value": [0.662, 0.86, 0.657, 1.0]
+                                }, {
+                                    "name": "lowColor",
+                                    "value": [0.008, 0.004, 0.615, 1.0]
+                                }, {
+                                    "name": "middleColor",
+                                    "value": [0.449, 0.449, 0.449, 1.0]
+                                }]
+                        }
+                    }
+                }, {
+                    "type": "CubeColliderComponent",
+                    "componentId": "CubeColliderComponent1",
+                    "componentName": "CubeColliderComponent",
+                    "properties": {
+                        "relativePosition": [0.0, 0.0, 0.0],
+                        "relativeSize": [1.0, 1.0, 1.0],
+                        "relativeRotation": [0.0, 0.0, 0.0],
+                        "isQuery": false,
+                        "ignoreSelf": true,
+                        "halfExtents": [1.0, 1.0, 1.0]
+                    }
+                }, {
+                    "type": "RotatingComponent",
+                    "componentId": "RotatingComponent1",
+                    "componentName": "RotatingComponent",
+                    "properties": {
+                        "relativePosition": [0.0, 0.0, 0.0],
+                        "relativeSize": [1.0, 1.0, 1.0],
+                        "relativeRotation": [0.0, 0.0, 0.0],
+                        "rotationRate": [10.0, 10.0, 10.0]
+                    }
+                }, {
+                    "type": "MeshComponent",
+                    "componentId": "MeshComponent2",
+                    "componentName": "MeshComponent",
+                    "parentID": "MeshComponent1",
+                    "properties": {
+                        "relativePosition": [0.0, 0.0, 0.0],
+                        "relativeSize": [1.0, 1.0, 1.0],
+                        "relativeRotation": [0.0, 0.0, 0.0],
+                        "mesh": "d66e8308-7299-4ef6-80d2-be12f7d81604",
+                        "materialInstance": {
+                            "baseMaterial": "e2d39562-80b0-41ea-92f7-9cd38f1cf03d",
+                            "textures": [{
+                                    "name": "albedo",
+                                    "type": "Cubemap",
+                                    "paths": ["0f2c2516-c067-455c-a808-0326a5d55b98", "8438a327-f6d2-44e9-9bb1-110fe6e81e5e", "adda84cd-1304-4699-92df-a1823440b181", "db2496f9-68e2-418c-94cf-3e9c3bbad41e", "542b57e4-e024-4a9e-a976-c7610a28d008", "54780b04-9754-479a-8fd8-74b98f3bc638"]
+                                }],
+                            "vec4Properties": [{
+                                    "name": "bottomColor",
+                                    "value": [0.194, 0.035, 0.27, 1.0]
+                                }, {
+                                    "name": "topColor",
+                                    "value": [1.0, 0.0, 0.888, 1.0]
+                                }]
+                        }
+                    }
+                }]
+        }, {
+            "prefabName": "5fe3f128-ef62-46a8-b643-ce517f4e9742",
+            "uuid": "6f1537bc-f08b-491b-8f1f-91511ccce6f1",
+            "name": "AtmosphereActor",
+            "state": "active",
+            "transform": {
+                "position": [0.0, 0.0, 0.0],
+                "rotation": [0.0, 0.0, 0.0],
+                "size": [1.0, 1.0, 1.0]
+            },
+            "components": [{
+                    "type": "AtmosphereComponent",
+                    "componentId": "AtmosphereComponent1",
+                    "componentName": "AtmosphereComponent",
+                    "properties": {
+                        "relativePosition": [0.0, 0.0, 0.0],
+                        "relativeSize": [1.0, 1.0, 1.0],
+                        "relativeRotation": [0.0, 0.0, 0.0],
+                        "fogStart": 15.0,
+                        "fogEnd": 100.0,
+                        "fogColor": [0.662, 0.0, 1.0, 1.0]
+                    }
+                }]
+        }]
+}

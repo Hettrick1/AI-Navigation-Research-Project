@@ -1,0 +1,66 @@
+{
+    "name": "TheDescentPlayer",
+    "state": "active",
+    "transform": {
+        "position": [0.0, 0.0, 0.0],
+        "rotation": [0.0, 0.0, 0.0],
+        "size": [1.0, 1.0, 1.0]
+    },
+    "components": [{
+            "type": "TheDescentPlayer",
+            "componentId": "TheDescentPlayer1",
+            "componentName": "TheDescentPlayer",
+            "properties": {
+                "relativePosition": [0.0, 0.0, 0.0],
+                "relativeSize": [1.0, 1.0, 1.0],
+                "relativeRotation": [0.0, 0.0, 0.0]
+            }
+        }, {
+            "type": "TheDescentPCNoPhysics",
+            "componentId": "TheDescentPCNoPhysics1",
+            "componentName": "TheDescentPCNoPhysics",
+            "properties": {
+                "relativePosition": [0.0, 0.0, 0.0],
+                "relativeSize": [1.0, 1.0, 1.0],
+                "relativeRotation": [0.0, 0.0, 0.0]
+            }
+        }, {
+            "type": "CameraComponent",
+            "componentId": "CameraComponent1",
+            "componentName": "CameraComponent",
+            "properties": {
+                "relativePosition": [0.0, 0.0, 0.0],
+                "relativeSize": [1.0, 1.0, 1.0],
+                "relativeRotation": [0.0, 0.0, 0.0],
+                "fov": 70.0,
+                "width": 1920.0,
+                "height": 1080.0,
+                "nearClip": 0.1,
+                "farClip": 10000.0
+            }
+        }, {
+            "type": "SpriteComponent",
+            "componentId": "SpriteComponent1",
+            "componentName": "SpriteComponent",
+            "parentID": "CameraComponent1",
+            "properties": {
+                "relativePosition": [0.0, 0.649, 0.0],
+                "relativeSize": [1.776, 1.0, 1.0],
+                "relativeRotation": [89.999, 0.0, 0.0],
+                "texture": "a0d266c3-8831-4aec-9866-3d64e0944abc",
+                "cullOff": false,
+                "materialInstance": {
+                    "baseMaterial": "7b717918-73eb-4379-ad3f-2f78afe545ce",
+                    "textures": [{
+                            "name": "albedo",
+                            "type": "Texture2D",
+                            "path": "a0d266c3-8831-4aec-9866-3d64e0944abc"
+                        }],
+                    "vec4Properties": [{
+                            "name": "uTint",
+                            "value": [1.0, 1.0, 1.0, 1.0]
+                        }]
+                }
+            }
+        }]
+}

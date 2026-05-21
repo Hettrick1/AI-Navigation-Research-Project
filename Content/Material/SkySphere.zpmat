@@ -1,0 +1,11 @@
+{
+    "shaders": {
+        "vertex": "8ff7d563-5ac6-4348-bc94-00aa5caccff5",
+        "fragment": "29173cef-9126-41c2-a621-9cb436e6c901"
+    },
+    "textures": [{
+            "name": "albedo",
+            "type": "Texture2D",
+            "path": "336362f9-20b0-4789-956d-ff04f8f05d07"
+        }]
+}
