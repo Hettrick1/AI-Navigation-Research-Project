@@ -107,10 +107,10 @@
                         "relativeSize": [1.0, 1.0, 1.0],
                         "relativeRotation": [0.0, 0.0, 0.0],
                         "gridSize": [20.0, 20.0, 10.0],
-                        "nbOfPoints": [60.0, 40.0],
+                        "nbOfPoints": [40.0, 20.0],
                         "agentWidth": 0.4,
                         "agentHeight": 1.5,
-                        "showNodeConnections": false,
+                        "showNodeConnections": true,
                         "showNodePosition": true,
                         "showAgentCollision": false
                     }
@@ -314,7 +314,7 @@
                         "relativeSize": [1.0, 1.0, 1.0],
                         "relativeRotation": [0.0, 0.0, 0.0],
                         "bodyType": "dynamic",
-                        "mass": 1.0,
+                        "mass": 2.0,
                         "friction": 0.5,
                         "restitution": 0.5,
                         "lockAngles": [0.0, 0.0, 1.0],
@@ -364,6 +364,96 @@
                         "relativeRotation": [0.0, 0.0, 0.0],
                         "volumeSize": [4.0, 4.0, 5.0],
                         "weight": 4.0
+                    }
+                }]
+        }, {
+            "prefabName": "c8b9bae3-14eb-441e-bc51-341ead1f9324",
+            "uuid": "d5f9be22-b5a4-43cf-96cd-2076b6381dd7",
+            "name": "CubeActor",
+            "state": "active",
+            "transform": {
+                "position": [-10.902, 11.189, 3.019],
+                "rotation": [0.0, 0.0, 0.0],
+                "size": [12.0, 5.0, 0.1]
+            },
+            "components": [{
+                    "type": "MeshComponent",
+                    "componentId": "MeshComponent1",
+                    "componentName": "MeshComponent",
+                    "properties": {
+                        "relativePosition": [0.0, 0.0, 0.0],
+                        "relativeSize": [1.0, 1.0, 1.0],
+                        "relativeRotation": [0.0, 0.0, 0.0],
+                        "mesh": "d66e8308-7299-4ef6-80d2-be12f7d81604",
+                        "materialInstance": {
+                            "baseMaterial": "443ed7be-dc9d-4992-a3bf-8651b765a054",
+                            "textures": [{
+                                    "name": "albedo",
+                                    "type": "Texture2D",
+                                    "path": "9108356a-451c-4af9-81e4-95c4e7d8cef4"
+                                }],
+                            "vec2Properties": [{
+                                    "name": "uTiling",
+                                    "value": [1.0, 1.0]
+                                }]
+                        }
+                    }
+                }, {
+                    "type": "CubeColliderComponent",
+                    "componentId": "CubeColliderComponent1",
+                    "componentName": "CubeColliderComponent",
+                    "properties": {
+                        "relativePosition": [0.0, 0.0, 0.0],
+                        "relativeSize": [1.0, 1.0, 1.0],
+                        "relativeRotation": [0.0, 0.0, 0.0],
+                        "isQuery": false,
+                        "ignoreSelf": true,
+                        "halfExtents": [12.0, 5.0, 0.1]
+                    }
+                }]
+        }, {
+            "prefabName": "c8b9bae3-14eb-441e-bc51-341ead1f9324",
+            "uuid": "453ef2e9-a398-495a-91a9-64c5281831eb",
+            "name": "CubeActor",
+            "state": "active",
+            "transform": {
+                "position": [-11.088, 7.018, 0.0],
+                "rotation": [0.0, 0.0, 0.0],
+                "size": [10.0, 1.0, 2.0]
+            },
+            "components": [{
+                    "type": "MeshComponent",
+                    "componentId": "MeshComponent1",
+                    "componentName": "MeshComponent",
+                    "properties": {
+                        "relativePosition": [0.0, 0.0, 0.0],
+                        "relativeSize": [1.0, 1.0, 1.0],
+                        "relativeRotation": [0.0, 0.0, 0.0],
+                        "mesh": "d66e8308-7299-4ef6-80d2-be12f7d81604",
+                        "materialInstance": {
+                            "baseMaterial": "443ed7be-dc9d-4992-a3bf-8651b765a054",
+                            "textures": [{
+                                    "name": "albedo",
+                                    "type": "Texture2D",
+                                    "path": "9108356a-451c-4af9-81e4-95c4e7d8cef4"
+                                }],
+                            "vec2Properties": [{
+                                    "name": "uTiling",
+                                    "value": [1.0, 1.0]
+                                }]
+                        }
+                    }
+                }, {
+                    "type": "CubeColliderComponent",
+                    "componentId": "CubeColliderComponent1",
+                    "componentName": "CubeColliderComponent",
+                    "properties": {
+                        "relativePosition": [0.0, 0.0, 0.0],
+                        "relativeSize": [1.0, 1.0, 1.0],
+                        "relativeRotation": [0.0, 0.0, 0.0],
+                        "isQuery": false,
+                        "ignoreSelf": true,
+                        "halfExtents": [10.0, 1.0, 2.0]
                     }
                 }]
         }]

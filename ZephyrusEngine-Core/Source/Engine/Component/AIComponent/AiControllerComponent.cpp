@@ -114,7 +114,7 @@ namespace Zephyrus::ActorComponent
 				Vector3D groundNormal(0, 0, 1);
 
 				auto startPos = mOwner->GetPosition();
-				auto endPos = mOwner->GetPosition().AddZ(-mOwner->GetSize().z);
+				auto endPos = mOwner->GetPosition().AddZ(-mOwner->GetSize().z * 0.7);
 				HitResult hit;
 				mOwner->GetSceneContext()->GetPhysicsWorld()->LineTrace(startPos, endPos, hit, { mOwner });
 				auto line = Debug::DebugLine(startPos, endPos, {}, Vector3D(1, 0, 0));
@@ -162,7 +162,7 @@ namespace Zephyrus::ActorComponent
 
 				bool goNext = mImpl->mNeedPreciseMovements ? mImpl->mCurrentNodeTarget->nodePosition.NearlyEquals(hit.HitPoint, 0.1f) : distance < mImpl->mLastDistance * factor;
 
-				if (mImpl->mCurrentNodeTarget != mImpl->mPath.back() && mImpl->mCurrentNodeTarget->nodePosition.NearlyEquals(hit.HitPoint, 0.1f))
+				if (mImpl->mCurrentNodeTarget != mImpl->mPath.back() && mImpl->mCurrentNodeTarget->nodePosition.NearlyEquals(hit.HitPoint, 0.15f))
 				{
 					mOwner->GetSceneContext()->GetRenderer()->GetDebugRenderer()->FlushDebugLines(5);
 					mImpl->mNodeIndex++;

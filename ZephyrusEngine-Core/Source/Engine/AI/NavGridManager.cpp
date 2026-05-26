@@ -592,14 +592,16 @@ namespace Zephyrus::AI
 		for (size_t i = 0; i < nodesUnderLine.size(); ++i)
 		{
 			float diffNormal = 0.0f;
+			float diffHeight = 0.0f;
 			float diffWeight = 0.0f;
 			if (i > 0)
 			{
 				diffNormal = nodesUnderLine[i]->groundNormal.z - nodesUnderLine[i - 1]->groundNormal.z;
+				diffHeight = nodesUnderLine[i]->nodePosition.z - nodesUnderLine[i - 1]->nodePosition.z;
 				diffWeight = nodesUnderLine[i]->weight - nodesUnderLine[i - 1]->weight;
 			}
 
-			// if not walkable or, the diff height is too big return false
+			// if not walkable or, the diff normal is too big return false
 			if (!nodesUnderLine[i] || !nodesUnderLine[i]->isWalkable || zpMaths::Abs(diffNormal) > 0.1f || zpMaths::Abs(diffWeight) != 0.0f)
 			{
 				return false;
