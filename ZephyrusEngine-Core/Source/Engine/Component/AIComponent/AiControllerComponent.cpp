@@ -114,7 +114,7 @@ namespace Zephyrus::ActorComponent
 				Vector3D groundNormal(0, 0, 1);
 
 				auto startPos = mOwner->GetPosition();
-				auto endPos = mOwner->GetPosition().AddZ(-mOwner->GetSize().z * 0.7);
+				auto endPos = mOwner->GetPosition().AddZ(-mOwner->GetSize().z);
 				HitResult hit;
 				mOwner->GetSceneContext()->GetPhysicsWorld()->LineTrace(startPos, endPos, hit, { mOwner });
 				auto line = Debug::DebugLine(startPos, endPos, {}, Vector3D(1, 0, 0));
@@ -156,12 +156,7 @@ namespace Zephyrus::ActorComponent
 
 					body->applyCentralForce(steeringForce);
 				}
-
-				float distance = mImpl->mCurrentNodeTarget->nodePosition.DistanceSquared(hit.HitPoint);
-				float factor = 0.35f;
-
-				bool goNext = mImpl->mNeedPreciseMovements ? mImpl->mCurrentNodeTarget->nodePosition.NearlyEquals(hit.HitPoint, 0.1f) : distance < mImpl->mLastDistance * factor;
-
+				
 				if (mImpl->mCurrentNodeTarget != mImpl->mPath.back() && mImpl->mCurrentNodeTarget->nodePosition.NearlyEquals(hit.HitPoint, 0.15f))
 				{
 					mOwner->GetSceneContext()->GetRenderer()->GetDebugRenderer()->FlushDebugLines(5);
