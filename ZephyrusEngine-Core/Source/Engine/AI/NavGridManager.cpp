@@ -46,7 +46,7 @@ namespace Zephyrus::AI
 
 		std::vector<GridNode*> mOpenList;
 
-		void _SetLineTraceVisibility(Render::DebugRenderer& debugRenderer, bool visibility);
+		void _SetNodeConnectionVisibility(Render::DebugRenderer& debugRenderer, bool visibility);
 		void _SetNodePositionVisibility(Render::DebugRenderer& debugRenderer, bool visibility);
 		void _SetAgentCollisionVisibility(Render::DebugRenderer& debugRenderer, bool visibility);
 
@@ -126,18 +126,7 @@ namespace Zephyrus::AI
 		for (int y = 0; y < mImpl->mNumPointsY; ++y) 
 		{
 			for (int x = 0; x < mImpl->mNumPointsX; ++x) 
-			{
-				// je fais un big line trace ca me retourne tous les hits
-				// je get la normale du hit, si elle est trop horizontale ca veut dire que mon agent pourra pas passer
-				// ensuite je fais un box trace dans la direction de la normale de mon hit et d'une longueur de la taille de mon agent
-				// Si jamais je ne hit rien c'est que ya rien et je peux ajouter à ma map la node
-				
-				// une fois toutes les nodes créés, je les parcours toutes et je détermine lesquelles sont accessibles depuis lesquelles 
-				// (je regarde la direction entre les 2 et si la pente (h/l) est plus grande qu'un certain nombre je dis qu'il peut pas passer par là)
-				// je pense que la slope max sera de 45 degrés
-				// la question qui se pose c'est comment faire si ya une rampe pour qu'il doive etre en face pour monter et pas sur les cotés 
-				// (il sera bloqué sur les cotés et ca causerait un bug)
-				
+			{				
 				Vector2D posXY = Vector2D(mImpl->mGridOrigin.x, mImpl->mGridOrigin.y);
 				posXY.x += (x * mImpl->StoredNodeSize.x * 2) + mImpl->StoredNodeSize.x;
 				posXY.y += (y * mImpl->StoredNodeSize.y * 2) + mImpl->StoredNodeSize.y;
@@ -156,6 +145,7 @@ namespace Zephyrus::AI
 					nodePos.x += (x * mImpl->StoredNodeSize.x * 2) + mImpl->StoredNodeSize.x;
 					nodePos.y += (y * mImpl->StoredNodeSize.y * 2) + mImpl->StoredNodeSize.y;
 					nodePos.z = hit.HitPoint.z;
+					node.groundNormal = hit.Normal;
 					node.nodePosition = nodePos;
 					node.gridX = x;
 					node.gridY = y;
@@ -178,6 +168,7 @@ namespace Zephyrus::AI
 					nodePos.y += (y * mImpl->StoredNodeSize.y * 2) + mImpl->StoredNodeSize.y;
 					nodePos.z = hit.HitPoint.z;
 					node.nodePosition = nodePos;
+					node.groundNormal = hit.Normal;
 					node.gridX = x;
 					node.gridY = y;
 					mImpl->mGrid.emplace_back(node);
@@ -220,6 +211,7 @@ namespace Zephyrus::AI
 				node.gridX = x;
 				node.gridY = y;
 				node.weight = weight;
+				node.groundNormal = hit.Normal;
 
 				Debug::DebugBox box = Debug::DebugBox(node.nodePosition, 0.1f, hit, color);
 				if (navVolume->GetShowNodePosition())
@@ -354,16 +346,17 @@ namespace Zephyrus::AI
 		auto debugRenderer = mImpl->mContext->GetRenderer()->GetDebugRenderer();
 		auto navVolume = mImpl->mVolumeComponents[0];
 
-		mImpl->_SetLineTraceVisibility(*debugRenderer, navVolume->GetShowLines());
+		mImpl->_SetNodeConnectionVisibility(*debugRenderer, navVolume->GetShowLines());
 		mImpl->_SetNodePositionVisibility(*debugRenderer, navVolume->GetShowNodePosition());
 		mImpl->_SetAgentCollisionVisibility(*debugRenderer, navVolume->GetShowAgentCollision());
 	}
 
-	void NavGridManager::Impl::_SetLineTraceVisibility(Render::DebugRenderer& debugRenderer, bool visibility)
+	void NavGridManager::Impl::_SetNodeConnectionVisibility(Render::DebugRenderer& debugRenderer, bool visibility)
 	{
+		// debug
 		if (!visibility && mPreviousShowArrow)
 		{
-			debugRenderer.FlushDebugLines(mNodeEdgesDebugArrowIndex);
+			debugRenderer.FlushDebugArrows(mNodeEdgesDebugArrowIndex);
 			mPreviousShowArrow = false;
 		}
 		if (visibility && !mPreviousShowArrow && !mDebugArrows.empty())
@@ -378,6 +371,7 @@ namespace Zephyrus::AI
 
 	void NavGridManager::Impl::_SetNodePositionVisibility(Render::DebugRenderer& debugRenderer, bool visibility)
 	{
+		// debug
 		if (!visibility && mPreviousShowNodePosition)
 		{
 			debugRenderer.FlushDebugBoxes(mNodeEdgesDebugArrowIndex);
@@ -396,6 +390,7 @@ namespace Zephyrus::AI
 
 	void NavGridManager::Impl::_SetAgentCollisionVisibility(Render::DebugRenderer& debugRenderer, bool visibility)
 	{
+		// debug
 		if (!visibility && mPreviousShowAgentCollision)
 		{
 			debugRenderer.FlushDebugBoxes(mAgentSizeDebugBoxIndex);
@@ -411,6 +406,7 @@ namespace Zephyrus::AI
 			mPreviousShowAgentCollision = true;
 		}
 	}
+
 	void NavGridManager::Impl::_CheckForNeighbors(Render::DebugRenderer& debugRenderer, float cellSizeX, float cellSizeY, GridNode& node)
 	{
 		const int dirs[8][2] =
@@ -423,6 +419,7 @@ namespace Zephyrus::AI
 			int nx = node.gridX + dir[0];
 			int ny = node.gridY + dir[1];
 
+			// the neighbor is in the grid bounds
 			if (nx >= 0 && nx < mNumPointsX && ny >= 0 && ny < mNumPointsY) {
 				int neighborIndex = ny * mNumPointsX + nx;
 				GridNode& neighbor = mGrid[neighborIndex];
@@ -430,6 +427,7 @@ namespace Zephyrus::AI
 				if (!neighbor.isWalkable)
 					continue;
 
+				// compute the slope angle
 				Vector3D direction = node.nodePosition - neighbor.nodePosition;
 
 				Vector3D upDirection = Vector3D::unitZ;
@@ -445,6 +443,7 @@ namespace Zephyrus::AI
 				if (zpMaths::Abs(angleDegrees) >= mMaxSlopeDeg)
 					continue;
 
+				// compute line of sight
 				HitResult hit;
 				const float height = node.nodePosition.z + 0.2f;
 				const Vector3D startHit = Vector3D(node.nodePosition.x, node.nodePosition.y, height);
@@ -455,6 +454,7 @@ namespace Zephyrus::AI
 				if (hit.HasHit && zpMaths::Abs(hit.Normal.z) < 0.7)
 					continue;
 
+				// nothing blocks the movements between the node and the neighbor
 				node.neighbors.push_back(&neighbor);
 
 				const Vector3D startPos = Vector3D(node.nodePosition.x, node.nodePosition.y, node.nodePosition.z + 0.1f);
@@ -477,22 +477,29 @@ namespace Zephyrus::AI
 		int centerX = static_cast<int>(gridRelativePosition.x / (StoredNodeSize.x * 2));
 		int centerY = static_cast<int>(gridRelativePosition.y / (StoredNodeSize.y * 2));
 
+		// stay in the bounds of the grid
 		centerX = zpMaths::Clamp(centerX, 0, static_cast<int>(mNumPointsX - 1));
 		centerY = zpMaths::Clamp(centerY, 0, static_cast<int>(mNumPointsY - 1));
 
 		int nodeIndex = centerY * mNumPointsX + centerX;
 		nearestNode = &mGrid[nodeIndex];
 
+		// get the node from its relative location
 		GridNode* startNode = &mGrid[centerY * mNumPointsX + centerX];
-		if (startNode && startNode->isWalkable) {
+		if (startNode && startNode->isWalkable) 
+		{
 			return startNode;
 		}
 
+		// start node wasn't valid so we loop in a certain radius to find a valid one
 		int maxRadius = std::max(mNumPointsX, mNumPointsY);
 
-		for (int radius = 1; radius < maxRadius; ++radius) {
-			for (int y = -radius; y <= radius; ++y) {
-				for (int x = -radius; x <= radius; ++x) {
+		for (int radius = 1; radius < maxRadius; ++radius) 
+		{
+			for (int y = -radius; y <= radius; ++y) 
+			{
+				for (int x = -radius; x <= radius; ++x) 
+				{
 
 					if (std::abs(x) != radius && std::abs(y) != radius) continue;
 
@@ -500,15 +507,18 @@ namespace Zephyrus::AI
 					int testY = centerY + y;
 
 					if (testX >= 0 && testX < (int)mNumPointsX &&
-						testY >= 0 && testY < (int)mNumPointsY) {
+						testY >= 0 && testY < (int)mNumPointsY) 
+					{
 
 						GridNode* testNode = &mGrid[testY * mNumPointsX + testX];
-						if (testNode && testNode->isWalkable) {
+						if (testNode && testNode->isWalkable) 
+						{
 							return testNode;
 						}
 					}
 				}
 			}
+			// break the loop to prevent infinite search
 			if (radius > 10) break;
 		}
 
@@ -527,6 +537,7 @@ namespace Zephyrus::AI
 		int x2 = static_cast<int>(std::floor((pEnd.x - mGridOrigin.x) / nodeSizeX));
 		int y2 = static_cast<int>(std::floor((pEnd.y - mGridOrigin.y) / nodeSizeY));
 
+		// stay in the bounds of the grid
 		x = zpMaths::Clamp(x, 0, (int)mNumPointsX - 1);
 		y = zpMaths::Clamp(y, 0, (int)mNumPointsY - 1);
 		x2 = zpMaths::Clamp(x2, 0, (int)mNumPointsX - 1);
@@ -554,6 +565,7 @@ namespace Zephyrus::AI
 				mContext->GetRenderer()->GetDebugRenderer()->AddDebugBox(box, 10);
 			}
 
+			// we reached the end
 			if (x == x2 && y == y2) break;
 
 			int e2 = 2 * err;
@@ -576,17 +588,19 @@ namespace Zephyrus::AI
 	{
 		auto nodesUnderLine = _GetNodesUnderLine(start->nodePosition.xy(), end->nodePosition.xy());
 
+		// check if the agent can walk between 2 nodes
 		for (size_t i = 0; i < nodesUnderLine.size(); ++i)
 		{
-			float diffHeight = 0.0f;
+			float diffNormal = 0.0f;
 			float diffWeight = 0.0f;
 			if (i > 0)
 			{
-				diffHeight = nodesUnderLine[i]->nodePosition.z - nodesUnderLine[i - 1]->nodePosition.z;
+				diffNormal = nodesUnderLine[i]->groundNormal.z - nodesUnderLine[i - 1]->groundNormal.z;
 				diffWeight = nodesUnderLine[i]->weight - nodesUnderLine[i - 1]->weight;
 			}
 
-			if (!nodesUnderLine[i] || !nodesUnderLine[i]->isWalkable || zpMaths::Abs(diffHeight) > 0.3f || zpMaths::Abs(diffWeight) != 0.0f)
+			// if not walkable or, the diff height is too big return false
+			if (!nodesUnderLine[i] || !nodesUnderLine[i]->isWalkable || zpMaths::Abs(diffNormal) > 0.1f || zpMaths::Abs(diffWeight) != 0.0f)
 			{
 				return false;
 			}
@@ -599,8 +613,11 @@ namespace Zephyrus::AI
 		float weight = 1.0f;
 		for (auto modifier : mModifierComponents)
 		{
+			// get if the node is in the modifier volume
 			if (modifier->IsPointInsideVolume(pos))
 			{
+				// apply to the node the weight of the volume 
+				// only if it is greater than the one already registered
 				const float tempWeight = modifier->GetWeight();
 				if (weight < tempWeight)
 				{
@@ -615,11 +632,13 @@ namespace Zephyrus::AI
 	{
 		std::vector<GridNode*> pathNode;
 		GridNode* temp = End;
+		// add each parent to the pathNode vector
 		while (temp != nullptr)
 		{
 			pathNode.push_back(temp);
 			temp = temp->parent;
 		}
+		// reverse it, we want the path from the starting node
 		std::reverse(pathNode.begin(), pathNode.end());
 		return pathNode;
 	}

@@ -74,6 +74,10 @@ namespace Zephyrus::ActorComponent {
 			upDown.BindKeyValue(GLFW_KEY_SPACE, 1.0f);
 			upDown.BindKeyValue(GLFW_KEY_LEFT_SHIFT, -1.0f);
 
+			auto& OnOffDebug = mInputManager->CreateBool("OnOffDebug");
+			OnOffDebug.OnStarted = [this]() { ShowHideDebug(); };
+			OnOffDebug.BindKey(GLFW_KEY_F10);
+
 			std::string MainMenuPngID = "e89d92d8-11f6-47a6-a6d8-48c8486cd80d";
 			Assets::ITexture2D* damageIndicator = Zephyrus::Assets::AssetsManager::GetInstance().LoadTexture(MainMenuPngID);
 			mCrossHair = new Zephyrus::UI::HudImage(mOwner->GetSceneContext(), damageIndicator, Vector2D(0, 0), 0.03);
@@ -132,6 +136,12 @@ namespace Zephyrus::ActorComponent {
 	{
 		auto up = Vector3D::unitZ;
 		mOwner->GetTransformComponent().Translate(up * direction * mSpeed * Timer::deltaTime);
+	}
+
+	void ProjectResearchControllerComponent::ShowHideDebug()
+	{
+		const auto& debugRenderer = mOwner->GetSceneContext()->GetRenderer()->GetDebugRenderer();
+		debugRenderer->SetDrawDebug(!debugRenderer->GetDrawDebug());
 	}
 
 	void ProjectResearchControllerComponent::SelectPath()

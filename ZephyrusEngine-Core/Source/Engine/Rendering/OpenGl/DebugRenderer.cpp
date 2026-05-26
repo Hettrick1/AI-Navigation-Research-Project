@@ -410,19 +410,20 @@ namespace Zephyrus::Render {
 
 	void DebugRenderer::Impl::DrawDebug()
 	{
+		if (!mDrawDebug)
+			return;
+
 		glEnable(GL_DEPTH_TEST);
 		glLineWidth(2);
-		if (mDrawDebug) {
-			if (mDrawLines && !mLinesVertices.empty())
-			{
-				DrawDebugLines();
-			}
-			if (mDrawBoxes)
-			{
-				DrawDebugBoxes();
+		if (mDrawLines && !mLinesVertices.empty())
+		{
+			DrawDebugLines();
+		}
+		if (mDrawBoxes)
+		{
+			DrawDebugBoxes();
 				
-				DrawDebugBoxesWithMatrices();
-			}
+			DrawDebugBoxesWithMatrices();
 		}
 		if (mDrawPersistantDebug)
 		{
@@ -643,5 +644,9 @@ namespace Zephyrus::Render {
 	void DebugRenderer::SetDrawSelected(bool pDraw)
 	{
 		mImpl->mDrawSelected = pDraw;
+	}
+	bool DebugRenderer::GetDrawDebug() const
+	{
+		return mImpl->mDrawDebug;
 	}
 }

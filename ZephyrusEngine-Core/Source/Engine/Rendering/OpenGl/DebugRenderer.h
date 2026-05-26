@@ -51,5 +51,7 @@ namespace Zephyrus::Render {
 		void SetDrawLines(bool pDraw);
 		void SetDrawBoxes(bool pDraw);
 		void SetDrawSelected(bool pDraw);
+
+		bool GetDrawDebug() const;
 	};
 }

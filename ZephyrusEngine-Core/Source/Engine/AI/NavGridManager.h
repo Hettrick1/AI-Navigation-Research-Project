@@ -20,6 +20,7 @@ namespace Zephyrus::AI
 		GridNode() = default;
 		~GridNode() = default;
 		Vector3D nodePosition = Vector3D::zero;
+		Vector3D groundNormal = Vector3D::unitZ;
 		bool isWalkable = true;
 
 		unsigned gridX = 0u;

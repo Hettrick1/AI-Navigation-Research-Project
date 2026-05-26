@@ -104,7 +104,10 @@ namespace Zephyrus::Render {
 		DrawSkySphere();
 		DrawMeshes();
 		mDebugRenderer->Draw(*this);
-		mPhysicsDebugRenderer->DrawDebug(mView, mProj);
+		if (mDebugRenderer->GetDrawDebug())
+		{
+			mPhysicsDebugRenderer->DrawDebug(mView, mProj);
+		}
 		DrawSprites();
 		DrawHud();
 		if (mSelectedActor)
