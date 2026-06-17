@@ -14,5 +14,4 @@ If you want to learn more about this project here is a link to the article I wro
 Some screenshots :
 <img width="1280" height="720" alt="7859ed0b-369b-45fa-9094-7ce280c5e6bb" src="https://github.com/user-attachments/assets/9eaa18de-f356-436e-8c41-f345a803b1ec" />
 <img width="1280" height="720" alt="750b8970-f904-4db8-bfb4-7e30916a699c" src="https://github.com/user-attachments/assets/9ec5fb89-182f-4b1c-a62e-31374935a223" />
-<img width="1280" height="720" alt="1bd91ab2-ba02-4dcd-af7f-ee9348fa54eb" src="https://github.com/user-attachments/assets/8ac5014b-9965-4e32-8a9d-b2c50036dc5e" />
 
