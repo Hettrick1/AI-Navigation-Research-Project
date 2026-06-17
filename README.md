@@ -9,6 +9,12 @@ For this Reseach project I will use my own game engine : [Zephyrus](https://gith
 I will not use any AI navigation library because the interest of this project is to do it myself. 
 In this research project I made a big use of external libraries, especially for all the physics computation. This external library is [Bullet3](https://github.com/bulletphysics/bullet3).
 
+## To run this project
+- Download or fork this repo, open the script folder and execute the windows script, this will create a visual studio solution using premake5
+- Open the solution and launch the editor or the runtime project.
+- To play the game you need to compile the runtime
+
+## Read more about this project
 If you want to learn more about this project here is a link to the article I wrote : [Link here](https://radial-visage-c6e.notion.site/Implementation-of-agent-navigation-in-my-own-game-engine-371f57293454805ba4b0f2612d5902f9?pvs=73)
 
 Some screenshots :
